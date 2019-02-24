@@ -35,7 +35,6 @@ import StartupsList from "@/components/Startups/StartupsList";
 export default {
   mounted() {
     console.log('LOGIN VIEW')
-    console.log(process.env.VUE_APP_KEY)
   },
 
   data() {
