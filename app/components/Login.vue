@@ -22,7 +22,7 @@
               class="form-input"/>
             </FlexboxLayout>
 
-            <Button text="Login" @tap="onButtontap" class="login-button" />
+            <Button text="Login" @tap="onButtonTap" class="login-button" />
           </StackLayout>
         </FlexboxLayout>
       </Gradient>
@@ -30,7 +30,12 @@
 </template>
 
 <script>
+import StartupsList from "@/components/Startups/StartupsList";
+
 export default {
+  mounted() {
+    console.log('HAHAHAHA')
+  },
   data() {
     return {
       usernameInput: '',
@@ -38,9 +43,23 @@ export default {
     }
   },
   methods: {
-
+    onButtonTap() {
+      console.log('BOTON apretado!');
+      this.$navigateTo(StartupsList);
+      // this.$showModal(Detail);
+    }
   }
 }
+const Detail = {
+  template: `
+    <Page>
+      <ActionBar title="Detail"/>
+      <StackLayout>
+        <Button text="Back to Master" @tap="$navigateBack" />
+      </StackLayout>
+    </Page>
+  `
+};
 </script>
 
 <style scoped lang="scss">
