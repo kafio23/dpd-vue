@@ -13,6 +13,8 @@
     "repository": "<fill-your-repository-here>",
     "dependencies": {
         "axios": "^0.18.0",
+        "dotenv": "^6.2.0",
+        "dotenv-webpack": "^1.7.0",
         "email-validator": "^2.0.4",
         "nativescript-gradient": "^2.0.1",
         "nativescript-theme-core": "~1.0.4",

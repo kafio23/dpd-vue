@@ -12,6 +12,7 @@ const NsVueTemplateCompiler = require("nativescript-vue-template-compiler");
 const nsWebpack = require("nativescript-dev-webpack");
 const nativescriptTarget = require("nativescript-dev-webpack/nativescript-target");
 const { NativeScriptWorkerPlugin } = require("nativescript-worker-loader/NativeScriptWorkerPlugin");
+const Dotenv = require('dotenv-webpack');
 
 module.exports = env => {
     // Add your custom Activities, Services and other android app components here.
@@ -208,6 +209,7 @@ module.exports = env => {
         plugins: [
             // ... Vue Loader plugin omitted
             // make sure to include the plugin!
+            new Dotenv(),
             new VueLoaderPlugin(),
             // Define useful constants like TNS_WEBPACK
             new webpack.DefinePlugin({

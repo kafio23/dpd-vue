@@ -11,7 +11,7 @@
 
 import axios from 'axios';
 
-const GOOGLE_API_KEY = 'AIzaSyAskcykHw4GPjZZQ966YmcGCUBuKpI7Muo';//process.env.GOOGLE_API_KEY;
+const GOOGLE_API_KEY = process.env.VUE_APP_KEY;
 const spreadsheetId = '1KSe1V27k_RY4cE7gIcUJD0Kaca9uRyQKNdoTLLVisj0';
 const range = 'Sheet1';
 
