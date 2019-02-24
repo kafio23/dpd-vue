@@ -1,14 +1,19 @@
 <template>
 	<Page>
 		<ActionBar title="Detail"/>
-			<StackLayout>
-        <ListView for="item in listOfItems" @itemTap="onItemTap">
+			<StackLayout class="list-panel">
+        <ListView for="item in listOfItems" @itemTap="onItemTap" style="height:300px">
           <v-template>
             <!-- Shows the list item label in the default color and style. -->
-            <Label :text="item[0]" />
+            <FlexboxLayout flexDirection="row" class="list-group-item">
+              <Label :text="item[0]" />
+            </FlexboxLayout>
           </v-template>
         </ListView>
-				<Button text="Back to Master" @tap="$navigateBack" />
+				
+        <Button text="Back to Master" @tap="$navigateBack" />
+        
+        <ActivityIndicator :busy="isBusy"></ActivityIndicator>
 			</StackLayout>
 	</Page>
 </template>
@@ -26,6 +31,7 @@ export default {
     return {
       listOfKeys: [],
       listOfItems: [],
+      isBusy: true,
       errors: []
     }
   },
@@ -37,6 +43,7 @@ export default {
         console.log('DATOS recibidos')
         this.listOfKeys = response.data.values[0]
         this.listOfItems = response.data.values.slice(1)
+        this.isBusy = false
       })
       .catch(error => {
         console.log(error)
