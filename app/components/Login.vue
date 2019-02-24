@@ -4,27 +4,26 @@
       <Gradient direction="to right" colors="#4781FE, #3A53FF, #02556E">
         <FlexboxLayout flexDirection="column" justifyContent="center"
         class="all-height">
-          <Label class="logo">
-            <FormattedString>
-              <Span class="fa" text.decode="&#xf135; "/>
-            </FormattedString>
-          </Label>
+
+          <Image src="~/assets/images/icon_rocket.png" class="logo-image" />
           
-          <FlexboxLayout alignItems="center" class="border-bottom">
-            <Image src="~/assets/images/icon_user.png" class="icon-margin" witdh="18"
-            height="18" />
-            <TextField v-model="usernameInput" hint="Usuario"
-            class="form-input"/>
-          </FlexboxLayout>
+          <StackLayout class="container">
+            <FlexboxLayout alignItems="center" class="border-bottom">
+              <Image src="~/assets/images/icon_user.png" class="icon-margin" witdh="18"
+              height="18" />
+              <TextField v-model="usernameInput" hint="Usuario"
+              class="form-input"/>
+            </FlexboxLayout>
 
-          <FlexboxLayout alignItems="center" class="border-bottom">
-            <Image src="~/assets/images/icon_password.png" class="icon-margin" witdh="18"
-            height="18" />
-            <TextField v-model="passwordInput" hint="Contraseña" secure="true"
-            class="form-input"/>
-          </FlexboxLayout>
+            <FlexboxLayout alignItems="center" class="border-bottom">
+              <Image src="~/assets/images/icon_password.png" class="icon-margin" witdh="18"
+              height="18" />
+              <TextField v-model="passwordInput" hint="Contraseña" secure="true"
+              class="form-input"/>
+            </FlexboxLayout>
 
-          <Button text="Login" @tap="onButtontap" class="login-button" />
+            <Button text="Login" @tap="onButtontap" class="login-button" />
+          </StackLayout>
         </FlexboxLayout>
       </Gradient>
   </Page>
@@ -49,6 +48,8 @@ export default {
 .border-bottom {
   border-bottom-width: 1;
   border-bottom-color: $white;
+  margin-bottom: 35;
+  padding-bottom: 8;
 }
 .fa {
   color: $white;
@@ -57,8 +58,9 @@ export default {
   color: $white;
   placeholder-color: $white;
 }
-.logo {
-  font-size: 60;
+.logo-image {
+  width:100;
+  margin-bottom: 20;
 }
 .icon-margin {
   margin-top:3;
@@ -76,5 +78,9 @@ export default {
 }
 .all-height {
   height: 100%
+}
+.container {
+  margin-left:35;
+  margin-right: 35;
 }
 </style>
