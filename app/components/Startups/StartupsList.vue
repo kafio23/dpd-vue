@@ -20,6 +20,8 @@
 
 <script>
 
+import StartupView from './StartupView.vue'
+
 import axios from 'axios';
 
 const GOOGLE_API_KEY = process.env.VUE_APP_KEY;
@@ -54,6 +56,19 @@ export default {
         this.errored = true
         this.errors = error
       })
+  },
+  methods: {
+    onItemTap({ item }) {
+      console.log(`Tapped on ${item[0]}`);
+      this.$navigateTo(StartupView, {
+        context: {
+          propsData: {
+            item: item[0]
+          }
+        }
+      })
+    },
+
   }
 }
 </script>
