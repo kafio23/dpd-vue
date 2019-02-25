@@ -6,9 +6,9 @@
 			
 			<StackLayout  width="60%" height="30%" >
 				<FlexboxLayout style="padding-bottom:10px;">
-					<Image :src="isFavorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star.png'" witdh="18"
+					<Image :src="isFavorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="18"
 					height="18" />
-					<Label text="Favorito" class="favorite"/>
+					<Label text="Favorito" :class="isFavorite? 'favorite':'no-favorite'"/>
 				</FlexboxLayout>
 				<FlexboxLayout alignSelf="center" >
 					<Label width="45%" :text="item[2]" class="tag" />
@@ -83,6 +83,11 @@ export default {
 }
 .favorite {
 	color: #f1c40f;
+	font-size: 20px;
+	font-weight: 500;
+}
+.no-favorite {
+	color: #cccccc;
 	font-size: 20px;
 	font-weight: 500;
 }
