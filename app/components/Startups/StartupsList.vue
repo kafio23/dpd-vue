@@ -1,6 +1,6 @@
 <template>
 	<Page>
-		<ActionBar title="Detail"/>
+		<ActionBar title="Startups"/>
 			<StackLayout class="list-panel">
         <ListView for="item in listOfItems" @itemTap="onItemTap" style="height:300px">
           <v-template>
@@ -40,9 +40,13 @@ export default {
     axios
       .get(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}!A1:G?key=${GOOGLE_API_KEY}`)
       .then(response => {
-        console.log('DATOS recibidos')
         this.listOfKeys = response.data.values[0]
         this.listOfItems = response.data.values.slice(1)
+        this.listOfItems.forEach( item => {
+          if (item.length < 7) {
+            item.push(false)
+          }
+        });
         this.isBusy = false
       })
       .catch(error => {
