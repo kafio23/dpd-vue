@@ -11,8 +11,8 @@
 					<Label text="Favorito" class="favorite"/>
 				</FlexboxLayout>
 				<FlexboxLayout alignSelf="center" >
-					<Label width="45%" :text="item[2]" class="key-title tag" />
-					<Label width="45%" :text="item[1]" class="key-title tag" />
+					<Label width="45%" :text="item[2]" class="tag" />
+					<Label width="45%" :text="item[1]" class="tag" />
 				</FlexboxLayout>
 			</StackLayout>
 			
@@ -76,6 +76,7 @@ export default {
 	font-weight: 500;
 }
 .tag{
+	font-size: 16px;
 	background-color: #8E6DD7;
 	color: $white;
 	font-weight: bold;
@@ -83,7 +84,6 @@ export default {
   padding-top: 5;
 	padding-bottom: 5;
 	text-align: center;
-	padding-left: 3;
 	margin-right: 5;
 }
 </style>
