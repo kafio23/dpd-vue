@@ -1,20 +1,25 @@
 <template>
 	<Page>
-    <ActionBar title="Another"/>
+    <ActionBar :title="item[0]"/>
 		<StackLayout>
-			<Label :text="this.item" />
-			<Button text="Back" @tap="onButtonTap" />
+			<Label text="haha" />
+			<Button text="Back" @tap="onButtonTap" item="ihadf" />
 		</StackLayout>
 	</Page>
 </template>
 
 <script>
 export default {
-	props: {
-    item: {
-      type: String,
-      required: true,
+	props: ['item'],
+
+	mounted() {
+		console.log('StartupView', this.item[0]);
+	},
+
+	methods: {
+    onButtonTap({item}) {
+      this.$navigateBack();
     }
-  },
-};
+  }
+}
 </script>

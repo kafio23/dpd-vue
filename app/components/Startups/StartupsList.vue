@@ -5,9 +5,7 @@
         <ListView for="item in listOfItems" @itemTap="onItemTap" style="height:300px">
           <v-template>
             <!-- Shows the list item label in the default color and style. -->
-            <FlexboxLayout flexDirection="row" class="list-group-item">
-              <Label :text="item[0]" />
-            </FlexboxLayout>
+            <StartupItem :item="item"></StartupItem>
           </v-template>
         </ListView>
 				
@@ -21,6 +19,7 @@
 <script>
 
 import StartupView from './StartupView.vue'
+import StartupItem from './StartupItem.vue'
 
 import axios from 'axios';
 
@@ -29,6 +28,10 @@ const spreadsheetId = process.env.VUE_APP_SHEET;
 const range = 'Sheet1';
 
 export default {
+  components: {
+    StartupItem
+  },
+
   data() {
     return {
       listOfKeys: [],
@@ -60,13 +63,7 @@ export default {
   methods: {
     onItemTap({ item }) {
       console.log(`Tapped on ${item[0]}`);
-      this.$navigateTo(StartupView, {
-        context: {
-          propsData: {
-            item: item[0]
-          }
-        }
-      })
+      this.$navigateTo(StartupView, { props: { item: item } } )
     },
 
   }

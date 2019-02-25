@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import StartupsList from "./components/Startups/StartupsList";
 import StartupView from "./components/Startups/StartupView";
+import StartupItem from "./components/Startups/StartupItem";
 
 Vue.registerElement("Gradient", () => require("nativescript-gradient").Gradient);
 
@@ -17,6 +18,7 @@ new Vue({
     components: {
         Login,
         StartupsList,
-        StartupView
+        StartupView,
+        StartupItem
     }
 }).$start();
