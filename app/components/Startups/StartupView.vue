@@ -6,7 +6,7 @@
 			
 			<StackLayout  width="60%" height="30%" >
 				<FlexboxLayout style="padding-bottom:10px;">
-					<Image src="~/assets/images/icon_star.png" witdh="18"
+					<Image :src="isFavorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star.png'" witdh="18"
 					height="18" />
 					<Label text="Favorito" class="favorite"/>
 				</FlexboxLayout>
@@ -38,16 +38,27 @@
 </template>
 
 <script>
+import favorites from '@/assets/data/favorites.json'
+
 export default {
 	props: ['item'],
 
+	data() {
+    return {
+      isFavorite: false
+    }
+  },
+
 	mounted() {
 		console.log('StartupView', this.item[0]);
+		if (favorites.startups.includes(this.item[0])) {
+			this.isFavorite = true
+		}
 	},
 
 	methods: {
     onButtonTap({item}) {
-      this.$navigateBack();
+			this.$navigateBack();
     }
   }
 }
