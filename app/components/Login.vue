@@ -87,7 +87,7 @@ const Detail = {
   margin-right:10;
 }
 .login-button {
-  background-color: #7881FE;
+  background-color: #8AABE0;
   color: $white;
   font-weight: bold;
   border-radius: 30;
