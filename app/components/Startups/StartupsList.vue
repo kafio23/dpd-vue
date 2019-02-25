@@ -49,7 +49,7 @@ export default {
         this.listOfItems = response.data.values.slice(1)
         this.listOfItems.forEach( item => {
           if (item.length < 7) {
-            item.push(false)
+            item.push('No tiene')
           }
         });
         this.isBusy = false
