@@ -22,6 +22,7 @@ import StartupView from './StartupView.vue'
 import StartupItem from './StartupItem.vue'
 
 import axios from 'axios';
+import favorites from '@/assets/data/favorites.json'
 
 const GOOGLE_API_KEY = process.env.VUE_APP_KEY;
 const spreadsheetId = process.env.VUE_APP_SHEET;
@@ -50,6 +51,10 @@ export default {
         this.listOfItems.forEach( item => {
           if (item.length < 7) {
             item.push('No tiene')
+          }
+          if (item.length > 6) {
+            item.push(false)
+            if (favorites.startups.includes(item[0])) { item[7] = true }
           }
         });
         this.isBusy = false
