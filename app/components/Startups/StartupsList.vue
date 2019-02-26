@@ -80,6 +80,28 @@ export default {
 
     onTextChanged() {
       // console.log("text changed to", this.searchText);
+      console.log("submitted text is", this.searchText);
+      let resultado = [];
+      let indices = [];
+      let filter = this.searchText.toUpperCase();
+      
+      for (let i = 0; i < this.listOfItems.length; i++) {
+        let txtValue = this.listOfItems[i][0];
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          console.log(i, this.listOfItems[i])
+          this.listOfItems[i][8]= true;
+          indices.push(i)
+        } else {
+          this.listOfItems[i][8]= false;
+        }      
+      }
+
+      for (let i = 0; i < this.listOfItems.length; i++) {
+        if (indices.includes(i)) {
+          resultado.push(this.listOfItems[i])
+        }
+      }
+      this.listOfItems = resultado
     },
 
     onSubmit() {
@@ -88,7 +110,7 @@ export default {
       let resultado = [];
       let indices = [];
       let filter = this.searchText.toUpperCase();
-      
+
       for (let i = 0; i < this.listOfItems.length; i++) {
         let txtValue = this.listOfItems[i][0];
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
