@@ -1,9 +1,5 @@
 <template>
-  <!-- <FlexboxLayout flexDirection="row" class="list-group-item">
-    <Label :text="item[0]" />
-  </FlexboxLayout> -->
   <GridLayout columns="*, auto" class="item-container">
-    <!-- <Label :text="item[0]" className="placeName" /> -->
     <GridLayout columns="auto, *" col="0" orientation="horizontal" class="tap-target">
       <StackLayout>
         <Label :text="item[0]" className="placeName" />
@@ -18,7 +14,6 @@
 					height="18" /> -->
       </StackLayout>
     </GridLayout>
-    <!-- <Label :text="item[2]" className="placeAddress" /> -->
   </GridLayout>
 </template>
 
