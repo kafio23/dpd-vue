@@ -114,7 +114,6 @@ export default {
       for (let i = 0; i < this.listOfItems.length; i++) {
         let txtValue = this.listOfItems[i][0];
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          console.log(i, this.listOfItems[i])
           this.listOfItems[i][8]= true;
           indices.push(i)
         } else {

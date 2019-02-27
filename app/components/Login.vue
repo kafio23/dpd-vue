@@ -1,7 +1,7 @@
 <template>
   <Page>
     <ActionBar title="App Demo"/>
-      <Gradient direction="to right" colors="#4781FE, #3A53FF, #02556E">
+      <StackLayout class="login-container" colors="#4781FE, #3A53FF, #02556E">
         <FlexboxLayout flexDirection="column" justifyContent="center"
         class="all-height">
 
@@ -25,7 +25,7 @@
             <Button text="Login" @tap="onButtonTap" class="login-button" />
           </StackLayout>
         </FlexboxLayout>
-      </Gradient>
+      </StackLayout>
   </Page>
 </template>
 
@@ -87,7 +87,8 @@ const Detail = {
   margin-right:10;
 }
 .login-button {
-  background-color: #8AABE0;
+  // background-color: #8AABE0;
+  background-color: #4781FE;
   color: $white;
   font-weight: bold;
   border-radius: 30;
@@ -95,6 +96,11 @@ const Detail = {
   padding-bottom: 15;
   text-transform: uppercase;
   letter-spacing: 0.2;
+}
+.login-container {
+  background-color: #1fc8db;
+  // background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+  background-image: linear-gradient(141deg, #4781FE 0%, #1fc8db 51%, #2cb5e8 75%);
 }
 .all-height {
   height: 100%
