@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import StartupsList from './StartupItem.vue'
+import StartupsList from './StartupsList.vue'
 const appSettings = require("application-settings");
 
 export default {
@@ -52,7 +52,6 @@ export default {
   },
 
 	mounted() {
-		console.log('StartupView', this.item[0]);
 		if (eval(appSettings.getString("favorites")).includes(this.item[0])) {
 			this.isFavorite = true
 		}
@@ -60,8 +59,8 @@ export default {
 
 	methods: {
     onButtonTap({item}) {
-			this.$navigateBack();
-			// this.$navigateTo(StartupsList);
+			// this.$navigateBack();
+			this.$navigateTo(StartupsList);
 		},
 		favoriteItem({item}) {
       console.log('Favorite: ', this.item)
@@ -75,9 +74,6 @@ export default {
         this.favoriteStartups.push(this.item[0])
         this.favoriteStartups = this.favoriteStartups.filter( onlyUnique );
         appSettings.setString("favorites", JSON.stringify(this.favoriteStartups))
-        // console.log(this.favoriteStartups)
-        
-        console.log(eval(appSettings.getString("favorites")))
       }
     }
   }

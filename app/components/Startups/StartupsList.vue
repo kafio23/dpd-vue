@@ -2,7 +2,6 @@
 	<Page>
 		<ActionBar title="Startups"/>
       <WrapLayout backgroundColor="#2cb5e8" class="main-list">
-			<!-- <StackLayout class="list-panel"> -->
         <SearchBar width="100%" height="10%" ref="searchBar" @clear="onClear" hint="Buscar..."
         v-model="searchText" @textChange="onTextChanged" @submit="onSubmit" class="search-bar" />
 
@@ -18,7 +17,6 @@
         <Button width="100%" height="10%" text="Back to Master" @tap="$navigateBack" />
         
         <ActivityIndicator width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
-			<!-- </StackLayout> -->
       </WrapLayout>
 	</Page>
 </template>
