@@ -6,10 +6,10 @@
         <Label :text="item[2]" className="startupType" />
       </StackLayout>
     </GridLayout>
-    <GridLayout col="1" class="delete-container" @tap="deleteItem()">
+    <GridLayout col="1" class="favorite-container" @tap="deleteItem()">
       <StackLayout>
-        <Image :src="item[7] ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="18"
-					height="18" />
+        <Image :src="item[7] ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="30"
+					height="30" />
           <!-- <Image src="~/assets/images/icon_star_gray.png" witdh="18"
 					height="18" /> -->
       </StackLayout>
@@ -42,6 +42,11 @@ export default {
 <style scoped lang="scss">
 @import "../../app-variables";
 
+.item-container {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 Label.startupName {
   font-size: 20px;
   color: $white;
@@ -52,5 +57,9 @@ Label.startupAddress {
 	font-style: italic;
   font-size: 14px;
   font-weight: bold;
+}
+
+.favorite-container {
+  align-items: center;
 }
 </style>
