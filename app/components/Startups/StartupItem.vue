@@ -2,8 +2,8 @@
   <GridLayout columns="*, auto" class="item-container">
     <GridLayout columns="auto, *" col="0" orientation="horizontal" class="tap-target">
       <StackLayout>
-        <Label :text="item[0]" className="placeName" />
-        <Label :text="item[2]" className="placeAddress" />
+        <Label :text="item[0]" className="startupName" />
+        <Label :text="item[2]" className="startupType" />
       </StackLayout>
     </GridLayout>
     <GridLayout col="1" class="delete-container" @tap="deleteItem()">
@@ -42,13 +42,13 @@ export default {
 <style scoped lang="scss">
 @import "../../app-variables";
 
-Label.placeName {
+Label.startupName {
   font-size: 20px;
   color: $white;
   font-weight: bold;
 }
 
-Label.placeAddress {
+Label.startupAddress {
 	font-style: italic;
   font-size: 14px;
   font-weight: bold;
