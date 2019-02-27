@@ -39,13 +39,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+@import "../../app-variables";
+
 Label.placeName {
-	font-size: 20px;
+  font-size: 20px;
+  color: $white;
+  font-weight: bold;
 }
 
 Label.placeAddress {
 	font-style: italic;
-	font-size: 13px;
+  font-size: 14px;
+  font-weight: bold;
 }
 </style>
