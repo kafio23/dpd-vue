@@ -1,9 +1,12 @@
 <template>
 	<Page>
 		<ActionBar title="Startups"/>
-			<StackLayout class="list-panel">
-        <SearchBar ref="searchBar" @clear="onClear" hint="Buscar..." v-model="searchText" @textChange="onTextChanged" @submit="onSubmit" />
-        <ListView for="item in listOfItems" @itemTap="onItemTap" style="height:300px">
+      <WrapLayout backgroundColor="#2cb5e8" class="main-list">
+			<!-- <StackLayout class="list-panel"> -->
+        <SearchBar width="100%" height="10%" ref="searchBar" @clear="onClear" hint="Buscar..."
+        v-model="searchText" @textChange="onTextChanged" @submit="onSubmit" class="search-bar" />
+
+        <ListView width="100%" height="70%" for="item in listOfItems" @itemTap="onItemTap" style="height:300px">
           <v-template>
             <!-- Shows the list item label in the default color and style. -->
             <!-- <StackLayout :visibility="item[8] ? 'visible' : 'collapsed'"> -->
@@ -12,10 +15,11 @@
           </v-template>
         </ListView>
 				
-        <Button text="Back to Master" @tap="$navigateBack" />
+        <Button width="100%" height="10%" text="Back to Master" @tap="$navigateBack" />
         
-        <ActivityIndicator :busy="isBusy"></ActivityIndicator>
-			</StackLayout>
+        <ActivityIndicator width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
+			<!-- </StackLayout> -->
+      </WrapLayout>
 	</Page>
 </template>
 
@@ -159,5 +163,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+@import "../../app-variables";
+
+.main-list {
+  opacity: 0.6;
+}
+.search-bar {
+  background: $white;
+}
 </style>
