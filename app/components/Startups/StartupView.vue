@@ -5,7 +5,7 @@
 			<Image src="~/assets/images/icon_rocket_color.png" width="40%" height="30%" class="logo-image" />
 			
 			<StackLayout  width="60%" height="30%" >
-				<FlexboxLayout style="padding-bottom:10px;">
+				<FlexboxLayout style="padding-bottom:10px;" @tap="favoriteItem">
 					<Image :src="isFavorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="18"
 					height="18" />
 					<Label text="Favorito" :class="isFavorite? 'favorite':'no-favorite'"/>
@@ -38,20 +38,22 @@
 </template>
 
 <script>
-import favorites from '@/assets/data/favorites.json'
+import StartupsList from './StartupItem.vue'
+const appSettings = require("application-settings");
 
 export default {
 	props: ['item'],
 
 	data() {
     return {
-      isFavorite: false
+			isFavorite: false,
+			favoriteStartups: []
     }
   },
 
 	mounted() {
 		console.log('StartupView', this.item[0]);
-		if (favorites.startups.includes(this.item[0])) {
+		if (eval(appSettings.getString("favorites")).includes(this.item[0])) {
 			this.isFavorite = true
 		}
 	},
@@ -59,6 +61,24 @@ export default {
 	methods: {
     onButtonTap({item}) {
 			this.$navigateBack();
+			// this.$navigateTo(StartupsList);
+		},
+		favoriteItem({item}) {
+      console.log('Favorite: ', this.item)
+      this.item[7] = (this.item[7] === false) ? true : false
+      this.isFavorite = this.item[7]
+      if (this.isFavorite) {
+				function onlyUnique(value, index, self) { 
+            return self.indexOf(value) === index;
+				}
+				this.favoriteStartups = eval(appSettings.getString("favorites"))
+        this.favoriteStartups.push(this.item[0])
+        this.favoriteStartups = this.favoriteStartups.filter( onlyUnique );
+        appSettings.setString("favorites", JSON.stringify(this.favoriteStartups))
+        // console.log(this.favoriteStartups)
+        
+        console.log(eval(appSettings.getString("favorites")))
+      }
     }
   }
 }

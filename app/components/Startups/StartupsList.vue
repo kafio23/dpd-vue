@@ -29,7 +29,8 @@ import StartupView from './StartupView.vue'
 import StartupItem from './StartupItem.vue'
 
 import axios from 'axios';
-import favorites from '@/assets/data/favorites.json'
+// import favorites from '@/assets/data/favorites.json'
+const appSettings = require("application-settings");
 
 const GOOGLE_API_KEY = process.env.VUE_APP_KEY;
 const spreadsheetId = process.env.VUE_APP_SHEET;
@@ -49,6 +50,7 @@ export default {
     }
   },
 	mounted() {
+    this.$forceUpdate()
     console.log('LIST VIEW')
     axios
       .get(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}!A1:G?key=${GOOGLE_API_KEY}`)
@@ -61,7 +63,7 @@ export default {
           }
           if (item.length > 6) {
             item.push(false)
-            if (favorites.startups.includes(item[0])) { item[7] = true }
+            if (eval(appSettings.getString("favorites")).includes(item[0])) { item[7] = true }
             item[8] = true
           }
         });
@@ -146,7 +148,7 @@ export default {
           }
           if (item.length > 6) {
             item.push(false)
-            if (favorites.startups.includes(item[0])) { item[7] = true }
+            if (eval(appSettings.getString("favorites")).includes(item[0])) { item[7] = true }
             item[8] = true
           }
         });

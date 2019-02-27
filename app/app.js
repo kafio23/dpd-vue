@@ -6,7 +6,9 @@ import StartupsList from "./components/Startups/StartupsList";
 import StartupView from "./components/Startups/StartupView";
 import StartupItem from "./components/Startups/StartupItem";
 
-Vue.registerElement("Gradient", () => require("nativescript-gradient").Gradient);
+// Vue.registerElement("Gradient", () => require("nativescript-gradient").Gradient);
+const appSettings = require("application-settings");
+appSettings.setString("favorites", '["5Helium", "Troomo"]')
 
 new Vue({
 
