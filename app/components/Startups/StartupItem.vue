@@ -10,8 +10,6 @@
       <StackLayout>
         <Image :src="item[7] ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="30"
 					height="30" />
-          <!-- <Image src="~/assets/images/icon_star_gray.png" witdh="18"
-					height="18" /> -->
       </StackLayout>
     </GridLayout>
   </GridLayout>
