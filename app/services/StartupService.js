@@ -84,17 +84,22 @@ export default class StartupService extends BackendService {
       Favorite: item.favorite
     }))
 
+    let favoriteStartups = eval(appSettings.getString("favorites"))
     if (item.favorite) {
-      let favoriteStartups = eval(appSettings.getString("favorites"))
-      
       function onlyUnique(value, index, self) { 
         return self.indexOf(value) === index;
       }
-
       favoriteStartups.push(item.name)
       favoriteStartups = favoriteStartups.filter( onlyUnique )
-      console.log(favoriteStartups)
       appSettings.setString("favorites", JSON.stringify(favoriteStartups))
+      item.favorite = true
+    }
+    else {
+      if (favoriteStartups.indexOf(item.name) > -1) {
+        favoriteStartups.splice(favoriteStartups.indexOf(item.name), 1);
+        appSettings.setString("favorites", JSON.stringify(favoriteStartups))
+      }
+      item.favorite = false
     }
     return http
       .request({
@@ -106,7 +111,6 @@ export default class StartupService extends BackendService {
       .then(this.getJson)
       .then(data => {
         console.info(`Updated item with id ${item.id}.`)
-        item.favorite = true
         return item
       })
   }
