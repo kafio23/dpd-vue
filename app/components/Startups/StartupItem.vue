@@ -2,13 +2,13 @@
   <GridLayout columns="*, auto" class="item-container">
     <GridLayout columns="auto, *" col="0" orientation="horizontal" class="tap-target">
       <StackLayout>
-        <Label :text="item[0]" className="startupName" />
-        <Label :text="item[2]" className="startupType" />
+        <Label :text="item.name" className="startupName" />
+        <Label :text="item.solutionType" className="startupType" />
       </StackLayout>
     </GridLayout>
     <GridLayout col="1" class="favorite-container" @tap="deleteItem()">
       <StackLayout>
-        <Image :src="item[7] ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="30"
+        <Image :src="item.favorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="30"
 					height="30" />
       </StackLayout>
     </GridLayout>
