@@ -47,11 +47,6 @@ export const toggleFavoriteItem = ({ commit }, item) => {
   return updateItem({ commit }, {...item, favorite: !item.favorite})
 }
 
-// export const FavoriteItem = ({ commit }, item) => {
-//   console.log('action toggleFavoriteItem')
-//   return updateItem({ commit }, {...item, favorite: !item.favorite})
-// }
-
 export const deleteItem = ({ commit }, item) => {
   const task = 'action deleteItem'
   console.log(task)
