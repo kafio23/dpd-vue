@@ -31,10 +31,42 @@ export default class StartupService extends BackendService {
     })
   }
 
+  update(item) {
+    console.log('putting', item, JSON.stringify({
+      Name: item.name,
+      Favorite: item.favorite
+    }))
+
+    if (item.favorite) {
+      let favoriteStartups = eval(appSettings.getString("favorites"))
+      
+      function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+      }
+
+      favoriteStartups.push(item.name)
+      favoriteStartups = favoriteStartups.filter( onlyUnique )
+      console.log(favoriteStartups)
+      appSettings.setString("favorites", JSON.stringify(favoriteStartups))
+    }
+    return http
+      .request({
+        url: `${this.baseUrl}${this.spreadsheetId}/values/${this.range}!A2:G?key=${this.apiGoogleKey}`,
+        method: 'GET', // 'PUT',
+        headers: this.getHeaders()
+      })
+      .then(this.validateCode)
+      .then(this.getJson)
+      .then(data => {
+        console.info(`Updated item with id ${item.id}.`)
+        item.favorite = true
+        return item
+      })
+  }
+
   getHeaders(toAppend = {}) {
     return Object.assign({
-      'Content-Type': 'application/json',
-      'Authorization': 'Kinvey ' + this.token,
+      'Content-Type': 'application/json'
     },
     toAppend)
   }

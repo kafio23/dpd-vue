@@ -23,6 +23,35 @@ export const loadItems = ({ commit }) => {
   })
 }
 
+export const updateItem = ({ commit }, item) => {
+  const task = 'action updateItem'
+  return new Promise((resolve, reject) => {
+    commit(types.ADD_PROCESSING_TASK, task)
+    startupService
+      .update(item)
+      .then(item => {
+        commit(types.UPDATE_ITEM, item)
+        commit(types.REMOVE_PROCESSING_TASK, task)
+        resolve(item)
+      })
+      .catch(error => {
+        console.error(`Error setting updating Item in the backend: ${error}.`)
+        commit(types.REMOVE_PROCESSING_TASK, task)
+        reject(error)
+      })
+  })
+}
+
+export const toggleFavoriteItem = ({ commit }, item) => {
+  console.log('action toggleFavoriteItem')
+  return updateItem({ commit }, {...item, favorite: !item.favorite})
+}
+
+// export const FavoriteItem = ({ commit }, item) => {
+//   console.log('action toggleFavoriteItem')
+//   return updateItem({ commit }, {...item, favorite: !item.favorite})
+// }
+
 export const deleteItem = ({ commit }, item) => {
   const task = 'action deleteItem'
   console.log(task)
