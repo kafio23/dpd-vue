@@ -1,18 +1,18 @@
 <template>
 	<Page>
-		<ActionBar :title="item[0]"/>
+		<ActionBar :title="item.name"/>
 		<WrapLayout>
 			<Image src="~/assets/images/icon_rocket_color.png" width="40%" height="30%" class="logo-image" />
 			
 			<StackLayout  width="60%" height="30%" >
 				<FlexboxLayout style="padding-bottom:10px;">
-					<Image :src="isFavorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="18"
+					<Image :src="item.favorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="18"
 					height="18" />
-					<Label text="Favorito" :class="isFavorite? 'favorite':'no-favorite'"/>
+					<Label text="Favorito" :class="item.favorite ? 'favorite':'no-favorite'"/>
 				</FlexboxLayout>
 				<FlexboxLayout alignSelf="center" >
-					<Label width="45%" :text="item[2]" class="tag" />
-					<Label width="45%" :text="item[1]" class="tag" />
+					<Label width="45%" :text="item.solutionType" class="tag" />
+					<Label width="45%" :text="item.industry" class="tag" />
 				</FlexboxLayout>
 			</StackLayout>
 			
@@ -24,10 +24,10 @@
 			</StackLayout>
 
 			<StackLayout  width="40%" height="50%" >
-				<Label :text="item[3]" class="key-value" />
-				<Label :text="item[4]" class="key-value" />
-				<Label :text="item[5]" class="key-value" />
-				<Label :text="item[6]" class="key-value" />
+				<Label :text="item.country" class="key-value" />
+				<Label :text="item.contractDate" class="key-value" />
+				<Label :text="item.web" class="key-value" />
+				<Label :text="item.university" class="key-value" />
 			</StackLayout>
 
 			<StackLayout  width="40%" height="50%" class="container">
@@ -38,28 +38,25 @@
 </template>
 
 <script>
-import favorites from '@/assets/data/favorites.json'
+import StartupsList from './StartupsList.vue'
+const appSettings = require("application-settings");
 
 export default {
 	props: ['item'],
 
 	data() {
     return {
-      isFavorite: false
     }
   },
 
 	mounted() {
-		console.log('StartupView', this.item[0]);
-		if (favorites.startups.includes(this.item[0])) {
-			this.isFavorite = true
-		}
 	},
 
 	methods: {
     onButtonTap({item}) {
 			this.$navigateBack();
-    }
+			// this.$navigateTo(StartupsList);
+		},
   }
 }
 </script>
