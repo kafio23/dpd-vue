@@ -12,7 +12,7 @@
             <FlexboxLayout>
               <StartupItem ref="startupItem" :item="item" ></StartupItem>
               <Image :src="item.favorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="60"
-					    height="60" @tap="favoriteItem(item)" />
+					    height="60" />
             </FlexboxLayout>
             <!-- </StackLayout> -->
           </v-template>
@@ -53,10 +53,11 @@ export default {
       isLoading: 'isProcessing'
     }),
     startupItems: function() {
-      // return this.isShowingRecent ? this.deletedItemList : this.itemList
       return this.itemList
     },
-
+    favoriteItems: function() {
+      // return this.isShowingRecent ? this.deletedItemList : this.itemList
+    },
     pageClasses: function () {
       return {
         // add top class so we can apply styles to specific platforms
@@ -71,9 +72,7 @@ export default {
       listOfKeys: [],
       listOfItems: [],
       isBusy: true,
-      errors: [],
-      isFavorite: false,
-      favoriteStartups: []
+      errors: []
     }
   },
 	mounted() {
@@ -125,34 +124,57 @@ export default {
     },
 
     onItemTap({ item }) {
-      console.log(`Tapped on ${item[0]}`);
+      console.log(`Tapped on ${item.name}`);
       this.$refs.searchBar.nativeView.dismissSoftInput();
       this.$navigateTo(StartupView, { props: { item: item } } )
     },
 
-    onTextChanged() {
-      // console.log("text changed to", this.searchText);
-      console.log("submitted text is", this.searchText);
-      let resultado = [];
-      let indices = [];
-      let filter = this.searchText.toUpperCase();
-      
-      for (let i = 0; i < this.listOfItems.length; i++) {
-        let txtValue = this.listOfItems[i][0];
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          this.listOfItems[i][8]= true;
-          indices.push(i)
-        } else {
-          this.listOfItems[i][8]= false;
-        }      
+    toggleFavoriteItem() {
+      if (this.item.favorite) {
+        this.$store.dispatch('toggleFavoriteItem', this.item)
+        .catch( () => {
+          alert("An error occurred managing your startup.");
+        });
       }
+      else {
+        this.$store.dispatch('toggleFavoriteItem', this.item)
+          .catch( () => {
+            alert("An error occurred managing your startup.");
+          });
+      }
+    },
 
-      for (let i = 0; i < this.listOfItems.length; i++) {
-        if (indices.includes(i)) {
-          resultado.push(this.listOfItems[i])
-        }
-      }
-      this.listOfItems = resultado
+    onTextChanged() {
+      this
+      .loadItems(this.searchText)
+        .then(() => {
+          this.isBusy = false
+        })
+        .catch(error => {
+          console.error(error)
+          alert("An error occurred loading your grocery list.");
+        })
+      // console.log("submitted text is", this.searchText);
+      // let resultado = [];
+      // let indices = [];
+      // let filter = this.searchText.toUpperCase();
+      
+      // for (let i = 0; i < this.listOfItems.length; i++) {
+      //   let txtValue = this.listOfItems[i][0];
+      //   if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      //     this.listOfItems[i][8]= true;
+      //     indices.push(i)
+      //   } else {
+      //     this.listOfItems[i][8]= false;
+      //   }      
+      // }
+
+      // for (let i = 0; i < this.listOfItems.length; i++) {
+      //   if (indices.includes(i)) {
+      //     resultado.push(this.listOfItems[i])
+      //   }
+      // }
+      // this.listOfItems = resultado
     },
 
     onSubmit() {
@@ -206,52 +228,6 @@ export default {
         this.errors = error
       })
     },
-
-    favoriteItem(item) {
-      console.log('startup: ', this.startupItems)
-      
-      
-      // let newListOfItems = []
-      // let indice = 0
-      // item[7] = (item[7] === false) ? true : false
-      // this.isFavorite = item[7]
-
-      // if (this.isFavorite) {
-      //   console.log('------SI ES FAVORITO------')
-			// 	function onlyUnique(value, index, self) { 
-      //       return self.indexOf(value) === index;
-			// 	}
-      //   this.favoriteStartups = eval(appSettings.getString("favorites"))
-      //   this.favoriteStartups.push(item[0])
-      //   this.favoriteStartups = this.favoriteStartups.filter( onlyUnique );
-      //   appSettings.setString("favorites", JSON.stringify(this.favoriteStartups))        
-      // } else {
-      //   console.log('------NO ES FAVORITO------')
-      //   const index = this.favoriteStartups.indexOf(item[0]);
-      //   if (index > -1) {
-      //     this.favoriteStartups.splice(index, 1);
-      //   }
-      // }
-      
-      // console.log('QUE PASO???', this.listOfItems[3][7])
-      // function settingFavorite(element, index, array) {
-      //   if (element[0] == item[0] ) {
-      //     array[index][7]=item[7]
-      //   }
-      // }
-      // this.listOfItems.forEach(settingFavorite);
-      // this.listOfItems.forEach((startup, index) => {
-      //   if (startup[0] == item[0] ) {
-      //     // console.log(this.listOfItems[index][0], 'AQUI', item[0])
-      //     indice = index
-      //     this.listOfItems[index][7] = item[7]
-      //     console.log('QUE PASO???', this.listOfItems[indice][7])
-      //     return
-      //   }
-      // })
-      // console.log(this.favoriteStartups)
-    }
-
   }
 }
 </script>

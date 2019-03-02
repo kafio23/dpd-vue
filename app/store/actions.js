@@ -3,24 +3,43 @@ import StartupService from '@/services/StartupService'
 
 const startupService = new StartupService()
 
-export const loadItems = ({ commit }) => {
+export const loadItems = ({ commit }, searchText='') => {
   const task = 'action loadItems'
   console.log(task)
-  return new Promise((resolve, reject) => {
-    commit(types.ADD_PROCESSING_TASK, task)
-    startupService
-      .load()
-      .then(items => {
-        commit(types.SET_ITEMS, items)
-        commit(types.REMOVE_PROCESSING_TASK, task)
-        resolve()
-      })
-      .catch(error => {
-        console.error(`Error loading items from the backend: ${error}.`)
-        commit(types.REMOVE_PROCESSING_TASK, task)
-        reject(error)
-      })
-  })
+  if(searchText) {
+    return new Promise((resolve, reject) => {
+      commit(types.ADD_PROCESSING_TASK, task)
+      startupService
+        .load(searchText)
+        .then(items => {
+          commit(types.SET_ITEMS, items)
+          commit(types.REMOVE_PROCESSING_TASK, task)
+          resolve()
+        })
+        .catch(error => {
+          console.error(`Error loading items from the backend: ${error}.`)
+          commit(types.REMOVE_PROCESSING_TASK, task)
+          reject(error)
+        })
+    })
+  } 
+  else {
+    return new Promise((resolve, reject) => {
+      commit(types.ADD_PROCESSING_TASK, task)
+      startupService
+        .load()
+        .then(items => {
+          commit(types.SET_ITEMS, items)
+          commit(types.REMOVE_PROCESSING_TASK, task)
+          resolve()
+        })
+        .catch(error => {
+          console.error(`Error loading items from the backend: ${error}.`)
+          commit(types.REMOVE_PROCESSING_TASK, task)
+          reject(error)
+        })
+    })
+  }
 }
 
 export const updateItem = ({ commit }, item) => {
