@@ -54,8 +54,8 @@ export default {
 
 	methods: {
     onButtonTap({item}) {
-			// this.$navigateBack();
-			this.$navigateTo(StartupsList);
+			this.$navigateBack();
+			// this.$navigateTo(StartupsList);
 		},
   }
 }

@@ -77,33 +77,6 @@ export default {
   },
 	mounted() {
     this.$refs.searchBar.nativeView.dismissSoftInput();
-    // // this.$forceUpdate()
-    // console.log('LIST VIEW')
-    // axios
-    //   .get(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}!A1:G?key=${GOOGLE_API_KEY}`)
-    //   .then(response => {
-    //     this.listOfKeys = response.data.values[0]
-    //     this.listOfItems = response.data.values.slice(1)
-    //     this.listOfItems.forEach( item => {
-    //       if (item.length < 7) {
-    //         item.push('No tiene')
-    //       }
-    //       if (item.length > 6) {
-    //         item.push(false)
-    //         if (eval(appSettings.getString("favorites")).includes(item[0])) {
-    //           item[7] = true
-    //         }
-    //         item[8] = true
-    //       }
-    //     });
-    //     // this.$refs.searchBar.nativeView.dismissSoftInput();
-    //     this.isBusy = false
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //     this.errored = true
-    //     this.errors = error
-    //   })
   },
 
   methods: {
@@ -113,7 +86,7 @@ export default {
     
     load() {
       this
-        .loadItems()
+        .loadItems(this.searchText)
         .then(() => {
           this.isBusy = false
         })
@@ -154,79 +127,34 @@ export default {
           console.error(error)
           alert("An error occurred loading your grocery list.");
         })
-      // console.log("submitted text is", this.searchText);
-      // let resultado = [];
-      // let indices = [];
-      // let filter = this.searchText.toUpperCase();
-      
-      // for (let i = 0; i < this.listOfItems.length; i++) {
-      //   let txtValue = this.listOfItems[i][0];
-      //   if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      //     this.listOfItems[i][8]= true;
-      //     indices.push(i)
-      //   } else {
-      //     this.listOfItems[i][8]= false;
-      //   }      
-      // }
-
-      // for (let i = 0; i < this.listOfItems.length; i++) {
-      //   if (indices.includes(i)) {
-      //     resultado.push(this.listOfItems[i])
-      //   }
-      // }
-      // this.listOfItems = resultado
     },
 
     onSubmit() {
       console.log("submitted text is", this.searchText);
       this.$refs.searchBar.nativeView.dismissSoftInput();
-      let resultado = [];
-      let indices = [];
-      let filter = this.searchText.toUpperCase();
-
-      for (let i = 0; i < this.listOfItems.length; i++) {
-        let txtValue = this.listOfItems[i][0];
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          this.listOfItems[i][8]= true;
-          indices.push(i)
-        } else {
-          this.listOfItems[i][8]= false;
-        }      
-      }
-
-      for (let i = 0; i < this.listOfItems.length; i++) {
-        if (indices.includes(i)) {
-          resultado.push(this.listOfItems[i])
-        }
-      }
-      this.listOfItems = resultado
+      this
+      .loadItems(this.searchText)
+        .then(() => {
+          this.isBusy = false
+        })
+        .catch(error => {
+          console.error(error)
+          alert("An error occurred loading your grocery list.");
+        })
     },
 
     onClear(){
-      this.$refs.searchBar.nativeView.dismissSoftInput();
-      axios
-      .get(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}!A1:G?key=${GOOGLE_API_KEY}`)
-      .then(response => {
-        this.listOfKeys = response.data.values[0]
-        this.listOfItems = response.data.values.slice(1)
-        this.listOfItems.forEach( item => {
-          if (item.length < 7) {
-            item.push('No tiene')
-          }
-          if (item.length > 6) {
-            item.push(false)
-            if (eval(appSettings.getString("favorites")).includes(item[0])) { item[7] = true }
-            item[8] = true
-          }
-        });
-        this.$refs.searchBar.nativeView.dismissSoftInput();
-        this.isBusy = false
-      })
-      .catch(error => {
-        console.log(error)
-        this.errored = true
-        this.errors = error
-      })
+      this
+      .loadItems(this.searchText)
+        .then(() => {
+          this.isBusy = false
+          this.$refs.searchBar.nativeView.dismissSoftInput();
+        })
+        .catch(error => {
+          console.error(error)
+          alert("An error occurred loading your grocery list.");
+          this.$refs.searchBar.nativeView.dismissSoftInput();
+        })
     },
   }
 }
