@@ -1,5 +1,15 @@
 <template>
-  <GridLayout columns="*, auto" class="item-container">
+  <WrapLayout class="item-container">
+    <FlexboxLayout width="75%" flexDirection="column" >
+      <Label :text="item.name" className="startupName" />
+      <Label :text="item.solutionType" className="startupType" />
+    </FlexboxLayout>
+    <GridLayout  width="20%" height="30%" class="favorite-container" @tap="toggleFavoriteItem">
+      <Image :src="item.favorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="30"
+        height="30" />
+    </GridLayout>
+  </WrapLayout>
+  <!-- <GridLayout columns="*, auto" class="item-container">
     <GridLayout columns="auto, *" col="0" orientation="horizontal" class="tap-target">
       <StackLayout>
         <Label :text="item.name" className="startupName" />
@@ -12,7 +22,7 @@
 					height="30" />
       </StackLayout>
     </GridLayout>
-  </GridLayout>
+  </GridLayout> -->
 </template>
 
 <script>
@@ -55,7 +65,7 @@ export default {
 
 .item-container {
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 5px;
 }
 
 Label.startupName {
@@ -64,7 +74,7 @@ Label.startupName {
   font-weight: bold;
 }
 
-Label.startupAddress {
+Label.startupType {
 	font-style: italic;
   font-size: 14px;
   font-weight: bold;
