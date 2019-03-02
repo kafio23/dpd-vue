@@ -9,11 +9,7 @@
           <v-template>
             <!-- Shows the list item label in the default color and style. -->
             <!-- <StackLayout :visibility="item[8] ? 'visible' : 'collapsed'"> -->
-            <FlexboxLayout>
               <StartupItem ref="startupItem" :item="item" ></StartupItem>
-              <Image :src="item.favorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="60"
-					    height="60" />
-            </FlexboxLayout>
             <!-- </StackLayout> -->
           </v-template>
         </ListView>
@@ -32,9 +28,7 @@ import StartupItem from './StartupItem.vue'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
-import axios from 'axios';
 import * as http from 'tns-core-modules/http'
-// import favorites from '@/assets/data/favorites.json'
 const appSettings = require("application-settings");
 
 const GOOGLE_API_KEY = process.env.VUE_APP_KEY;
