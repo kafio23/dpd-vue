@@ -5,7 +5,7 @@
 			<Image src="~/assets/images/icon_rocket_color.png" width="40%" height="30%" class="logo-image" />
 			
 			<StackLayout  width="60%" height="30%" >
-				<FlexboxLayout style="padding-bottom:10px;" @tap="favoriteItem">
+				<FlexboxLayout style="padding-bottom:10px;">
 					<Image :src="item.favorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="18"
 					height="18" />
 					<Label text="Favorito" :class="item.favorite ? 'favorite':'no-favorite'"/>
@@ -46,15 +46,10 @@ export default {
 
 	data() {
     return {
-			isFavorite: false,
-			favoriteStartups: []
     }
   },
 
 	mounted() {
-		if (eval(appSettings.getString("favorites")).includes(this.item[0])) {
-			this.isFavorite = true
-		}
 	},
 
 	methods: {
@@ -62,20 +57,6 @@ export default {
 			// this.$navigateBack();
 			this.$navigateTo(StartupsList);
 		},
-		favoriteItem({item}) {
-      console.log('Favorite: ', this.item)
-      this.item[7] = (this.item[7] === false) ? true : false
-      this.isFavorite = this.item[7]
-      if (this.isFavorite) {
-				function onlyUnique(value, index, self) { 
-            return self.indexOf(value) === index;
-				}
-				this.favoriteStartups = eval(appSettings.getString("favorites"))
-        this.favoriteStartups.push(this.item[0])
-        this.favoriteStartups = this.favoriteStartups.filter( onlyUnique );
-        appSettings.setString("favorites", JSON.stringify(this.favoriteStartups))
-      }
-    }
   }
 }
 </script>
