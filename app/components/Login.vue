@@ -11,7 +11,7 @@
             <FlexboxLayout alignItems="center" class="border-bottom">
               <Image src="~/assets/images/icon_user.png" class="icon-margin" witdh="18"
               height="18" />
-              <TextField v-model="usernameInput" hint="Usuario"
+              <TextField v-model="usernameInput" hint="Usuario" keyboardType="email"
               class="form-input"/>
             </FlexboxLayout>
 

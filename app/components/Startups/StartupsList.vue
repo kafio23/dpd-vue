@@ -1,23 +1,30 @@
 <template>
-	<Page>
-		<ActionBar title="Startups"/>
-      <WrapLayout backgroundColor="#2cb5e8" class="main-list" @loaded="load()">
-        <SearchBar width="100%" height="10%" ref="searchBar" @clear="onClear" hint="Buscar..."
-        v-model="searchText" @textChange="onTextChanged" @submit="onSubmit" class="search-bar" />
+	<Page actionBarHidden="true">
+		<!-- <ActionBar title="Startups"/> -->
+    
+    
+    <WrapLayout backgroundColor="#2cb5e8" class="main-list" @loaded="load()">
 
-        <ListView width="100%" height="70%" for="item in startupItems" @itemTap="onItemTap" style="height:300px">
-          <v-template>
-            <!-- Shows the list item label in the default color and style. -->
-            <!-- <StackLayout :visibility="item[8] ? 'visible' : 'collapsed'"> -->
-              <StartupItem ref="startupItem" :item="item" ></StartupItem>
-            <!-- </StackLayout> -->
-          </v-template>
-        </ListView>
-				
-        <Button width="100%" height="10%" text="Back to Master" @tap="$navigateBack" />
-        
-        <ActivityIndicator width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
-      </WrapLayout>
+      <FlexboxLayout alignItems="center" width="100%" height="10%" class="action-bar-costume">
+        <Label width="80%" text="Lista Startups"></Label>
+        <GridLayout width="20%" @tap="showMenu" class='menu-button-container'>
+          <Image src="~/assets/images/icon_menu.png" witdh="30" height="30" />
+        </GridLayout>
+      </FlexboxLayout>
+
+      <SearchBar :visibility="isBusy ? 'collapsed' : 'visible'" width="100%" height="10%" ref="searchBar" @clear="onClear" hint="Buscar..."
+      v-model="searchText" @textChange="onTextChanged" @submit="onSubmit" class="search-bar" />
+
+      <ListView width="100%" height="60%" for="item in startupItems" @itemTap="onItemTap" style="height:300px">
+        <v-template>
+            <StartupItem ref="startupItem" :item="item" ></StartupItem>
+        </v-template>
+      </ListView>
+      
+      <Button width="100%" height="10%" text="Back to Master" @tap="$navigateBack" />
+      
+      <ActivityIndicator width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
+    </WrapLayout>
 	</Page>
 </template>
 
@@ -25,15 +32,20 @@
 
 import StartupView from './StartupView.vue'
 import StartupItem from './StartupItem.vue'
+import Login from '@/components/Login'
+import LoginService from '@/services/LoginService'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
 import * as http from 'tns-core-modules/http'
+import * as platformModule from 'tns-core-modules/platform'
 const appSettings = require("application-settings");
 
 const GOOGLE_API_KEY = process.env.VUE_APP_KEY;
 const spreadsheetId = process.env.VUE_APP_SHEET;
 const range = 'Sheet1';
+
+const loginService = new LoginService()
 
 export default {
   components: {
@@ -70,7 +82,14 @@ export default {
     }
   },
 	mounted() {
-    this.$refs.searchBar.nativeView.dismissSoftInput();
+     if (platformModule.isAndroid) {
+       this.$refs.searchBar.nativeView.dismissSoftInput();
+        // textField.dismissSoftInput(); // if showing it will hide, if not showing nothing will happen
+    }else if (platformModule.isIOS) {
+
+        // textField.ios.resignFirstResponder(); // same here.. 
+    }
+    // this.$refs.searchBar.nativeView.dismissSoftInput();
   },
 
   methods: {
@@ -124,7 +143,6 @@ export default {
     },
 
     onSubmit() {
-      console.log("submitted text is", this.searchText);
       this.$refs.searchBar.nativeView.dismissSoftInput();
       this
       .loadItems(this.searchText)
@@ -150,6 +168,22 @@ export default {
           this.$refs.searchBar.nativeView.dismissSoftInput();
         })
     },
+
+    logout: function() {
+      this.$navigateTo(Login)
+    },
+
+    showMenu() {
+      action({
+        message: "¿Deseas salir?",
+        actions: ["Log Off"],
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result === "Log Off") {
+          this.logout();
+        }
+      });
+    },
   }
 }
 </script>
@@ -158,7 +192,7 @@ export default {
 @import "../../app-variables";
 
 .main-list {
-  opacity: 0.6;
+  // opacity: 0.6;
 }
 .search-bar {
   background: $white;
