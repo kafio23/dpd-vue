@@ -53,7 +53,7 @@ export default {
     favoreItem() {
       this.$store.dispatch('favoriteItem', this.item)
         .catch(() => {
-          alert("An error occurred managing your grocery list.");
+          alert("An error occurred managing your Startup list.");
         });
     },
   },

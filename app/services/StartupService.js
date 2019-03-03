@@ -4,7 +4,14 @@ import BackendService from './BackendService'
 const appSettings = require("application-settings");
 
 export default class StartupService extends BackendService {
-  load(searchText='') {
+  load(params) {
+    let searchText = ''
+    let byType = 0
+    if (params) {
+      searchText = params.searchText || ''
+      byType = params.byType || 0
+    }
+
     if(searchText) {
       return http.request({
         url: `${this.baseUrl}${this.spreadsheetId}/values/${this.range}!A2:G?key=${this.apiGoogleKey}`,
@@ -18,9 +25,9 @@ export default class StartupService extends BackendService {
           let startups = []
           let indices = [];
           let startupsLength = data.values.length
-
+          
           for (let i = 0; i < startupsLength; i++) {
-              let txtValue = data.values[i][0];
+              let txtValue = byType > 0 ? data.values[i][byType] : data.values[i][0];
               if (txtValue.toUpperCase().indexOf(filterWord) > -1) {
                 data.values[i][8]= false;
                 indices.push(i)

@@ -22,7 +22,7 @@
       </ListView>
       
       <!-- <Button width="100%" height="10%" text="Back to Master" @tap="$navigateBack" /> -->
-      <Button width="100%" height="10%" text="Filtrar" @tap="filterButton" />
+      <!-- <Button width="100%" height="10%" text="Filtrar" @tap="filterButton" /> -->
       
       <ActivityIndicator :visibility="isBusy ? 'visible' : 'collapsed'" width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
     </WrapLayout>
@@ -33,7 +33,6 @@
 
 import StartupView from './StartupView.vue'
 import StartupItem from './StartupItem.vue'
-import StartupFilter from './StartupFilter.vue'
 import Login from '@/components/Login'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
@@ -78,10 +77,7 @@ export default {
       listOfKeys: [],
       listOfItems: [],
       isBusy: true,
-      errors: [],
-      byName: true,
-      byIndustry: false,
-      byType: 0
+      errors: []
     }
   },
 	mounted() {
@@ -102,7 +98,7 @@ export default {
     
     load() {
       this
-        .loadItems({searchText: this.searchText, byType: this.byType})
+        .loadItems(this.searchText)
         .then(() => {
           this.isBusy = false
         })
@@ -134,9 +130,8 @@ export default {
     },
 
     onTextChanged() {
-      console.log('CAMBIA', {searchText: this.searchText, byType: this.byType})
       this
-      .loadItems({searchText: this.searchText, byType: this.byType})
+      .loadItems(this.searchText)
         .then(() => {
           this.isBusy = false
         })
@@ -149,7 +144,7 @@ export default {
     onSubmit() {
       this.$refs.searchBar.nativeView.dismissSoftInput();
       this
-      .loadItems({searchText: this.searchText, byType: this.byType})
+      .loadItems(this.searchText)
         .then(() => {
           this.isBusy = false
         })
@@ -161,7 +156,7 @@ export default {
 
     onClear(){
       this
-      .loadItems({searchText: this.searchText, byType: this.byType})
+      .loadItems(this.searchText)
         .then(() => {
           this.isBusy = false
           this.$refs.searchBar.nativeView.dismissSoftInput();
@@ -190,67 +185,27 @@ export default {
     },
 
     filterButton() {
-      action({
-        message: "¿Buscar por?",
-        actions: ["Nombre","Tipo"],
-        cancelButtonText: "Cancelar"
-      }).then((result) => {
-        if (result === "Nombre") {
-          this.byType = 0
-          this
-          .loadItems({searchText: this.searchText, byType: this.byType})
-            .then(() => {
-              this.isBusy = false
-            })
-            .catch(error => {
-              console.error(error)
-              alert("An error occurred loading your Startup list.");
-            })
-        }
-        if (result === "Tipo") {
-          this.byType = 2
-          this
-          .loadItems({searchText: this.searchText, byType: this.byType})
-            .then(() => {
-              this.isBusy = false
-            })
-            .catch(error => {
-              console.error(error)
-              alert("An error occurred loading your Startup list.");
-            })
-        }
-      });
-      // this.$showModal(Detail);
+      this.$showModal(Detail);
     }
   }
 }
 
 const Detail = {
   template: `
-    <Frame>
-      <Page>
-        <ActionBar title="Buscar por..."/>
-        <StackLayout>
-
-          <FlexboxLayout alignItems="center">
-            <Label text="Nombre"></Label>
-            <Switch :checked="byName" v-model="byName" />
-          </FlexboxLayout>
-
-          <FlexboxLayout alignItems="center">
-            <Label text="Industria"></Label>
-            <Switch :checked="byIndustry" v-model="byName" />
-          </FlexboxLayout>
-
-          <FlexboxLayout alignItems="center">
-            <Label text="Tipo de Solución"></Label>
-            <Switch :checked="byType" v-model="byName" />
-          </FlexboxLayout>
-          
-          <Button @tap="$modal.close" text="Close" />
-        </StackLayout>
-      </Page>
-    </Frame>
+    <Page>
+      <StackLayout>
+      <FlexboxLayout alignSelf="center" >
+        <Label text="Tipo:" class="tag" />
+        <Switch v-model="itemEnabled" />
+			</FlexboxLayout>
+        <Switch v-model="itemEnabled" />
+        <Switch v-model="itemEnabled" />
+        <Switch v-model="itemEnabled" />
+        <Switch v-model="itemEnabled" />
+        <Switch v-model="itemEnabled" />
+        <Switch v-model="itemEnabled" />
+      </StackLayout>
+    </Page>
   `
 };
 </script>

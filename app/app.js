@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import StartupsList from "./components/Startups/StartupsList";
 import StartupView from "./components/Startups/StartupView";
 import StartupItem from "./components/Startups/StartupItem";
+import StartupFilter from "./components/Startups/StartupFilter";
 
 import store from './store';
 
@@ -23,6 +24,7 @@ new Vue({
         Login,
         StartupsList,
         StartupView,
-        StartupItem
+        StartupItem,
+        StartupFilter
     }
 }).$start();

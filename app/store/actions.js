@@ -3,14 +3,14 @@ import StartupService from '@/services/StartupService'
 
 const startupService = new StartupService()
 
-export const loadItems = ({ commit }, searchText='') => {
+export const loadItems = ({ commit }, params={searchText:'', byType:0}) => {
   const task = 'action loadItems'
   console.log(task)
-  if(searchText) {
+  if(params.searchText) {
     return new Promise((resolve, reject) => {
       commit(types.ADD_PROCESSING_TASK, task)
       startupService
-        .load(searchText)
+        .load({searchText:params.searchText, byType:params.byType})
         .then(items => {
           commit(types.SET_ITEMS, items)
           commit(types.REMOVE_PROCESSING_TASK, task)
