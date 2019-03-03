@@ -54,6 +54,7 @@
 
 <script>
 import StartupsList from './StartupsList.vue'
+import Login from '@/components/Login'
 const appSettings = require("application-settings");
 
 export default {
@@ -75,6 +76,21 @@ export default {
 			this.$navigateBack();
 			// this.$navigateTo(StartupsList);
 		},
+		logout: function() {
+      this.$navigateTo(Login)
+    },
+
+    showMenu() {
+      action({
+        message: "¿Deseas salir?",
+        actions: ["Log Off"],
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result === "Log Off") {
+          this.logout();
+        }
+      });
+    },
   }
 }
 </script>
