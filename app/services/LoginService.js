@@ -1,7 +1,7 @@
 import * as http from 'tns-core-modules/http'
 import BackendService from './BackendService'
 
-import user from '@/assets/data/user.json'
+import userData from '@/assets/data/user.json'
 
 export default class LoginService extends BackendService {
 
@@ -17,12 +17,31 @@ export default class LoginService extends BackendService {
     // })
     // .then(this.validateCode)
     // .then(this.getJson)
+    let emailFlag = false
+    let passwordFlag = false
+    let userTest = JSON.parse(JSON.stringify({
+      username: user.email,
+      password: user.password
+    }))
+    if (Object.values(userTest)[0] == userData.email){
+      emailFlag = true
+    }
+    if (Object.values(userTest)[1] == userData.password) {
+      passwordFlag = true
+    }
 
-    this
-    .then(data => {
-      console.info('User logged')
-      this.respond = true
-    })
+    if  (emailFlag && passwordFlag) {
+      console.log('----SIIII----')
+      return true
+    } else {
+      return false
+    }
+    // this.respond = true
+    // return true
+    //   .then(data => {
+    //     console.info('User logged')
+    //     this.respond = true
+    //   })
   }
 
   register(user) {

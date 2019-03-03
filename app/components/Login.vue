@@ -11,14 +11,15 @@
             <FlexboxLayout alignItems="center" class="border-bottom">
               <Image src="~/assets/images/icon_user.png" class="icon-margin" witdh="18"
               height="18" />
-              <TextField v-model="usernameInput" hint="Usuario" keyboardType="email"
+              <TextField v-model="user.email" hint="Email" keyboardType="email"
+              autocapitalizationType="none" returnKeyType="next" @returnPress="focusPassword()"
               class="form-input"/>
             </FlexboxLayout>
 
             <FlexboxLayout alignItems="center" class="border-bottom">
               <Image src="~/assets/images/icon_password.png" class="icon-margin" witdh="18"
               height="18" />
-              <TextField v-model="passwordInput" hint="Contraseña" secure="true"
+              <TextField ref="userPassword" v-model="user.password" hint="Contraseña" secure="true"
               class="form-input"/>
             </FlexboxLayout>
 
@@ -30,7 +31,13 @@
 </template>
 
 <script>
+import { connectionType, getConnectionType } from 'tns-core-modules/connectivity'
+import User from '@/models/User'
+import LoginService from '@/services/LoginService'
 import StartupsList from "@/components/Startups/StartupsList";
+import userData from '@/assets/data/user.json'
+
+const loginService = new LoginService()
 
 export default {
   mounted() {
@@ -39,18 +46,43 @@ export default {
 
   data() {
     return {
-      usernameInput: '',
-      passwordInput: '',
+      user: new User()
     }
   },
   methods: {
+    focusPassword() {
+      this.$refs.userPassword.nativeView.focus();
+    },
+
     onButtonTap() {
-      console.log('BOTON apretado!');
-      this.$navigateTo(StartupsList);
+      this.login();
+    },
+
+    login() {
       // this.$showModal(Detail);
-    }
+      let emailFlag = false
+      let passwordFlag = false
+      let userTest = JSON.parse(JSON.stringify({
+        username: this.user.email,
+        password: this.user.password
+      }))
+      if (Object.values(userTest)[0] == userData.email){
+        emailFlag = true
+      }
+      if (Object.values(userTest)[1] == userData.password) {
+        passwordFlag = true
+      }
+
+      if  (emailFlag && passwordFlag) {
+        console.log('----SIIII----')
+        this.$navigateTo(StartupsList)
+      } else {
+        alert("Usuario y/o contraseña no existe")
+      }
+    },
   }
 }
+
 const Detail = {
   template: `
     <Page>
