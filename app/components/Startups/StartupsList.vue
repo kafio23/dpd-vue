@@ -22,7 +22,11 @@
       </ListView>
       
       <!-- <Button width="100%" height="10%" text="Back to Master" @tap="$navigateBack" /> -->
-      <Button width="100%" height="10%" text="Favoritos" @tap="favoriteView" />
+      <!-- <Button width="100%" height="10%" text="Favoritos" @tap="favoriteView" /> -->
+      <FlexboxLayout :visibility="isBusy ? 'collapsed' : 'visible'" alignItems="center" width="100%" height="10%" >
+        <Button width="50%" text="Favoritos" @tap="favoriteView" />
+        <Button width="50%" text="Industria" @tap="filterButton" />
+      </FlexboxLayout>
       
       <ActivityIndicator :visibility="isBusy ? 'visible' : 'collapsed'" width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
     </WrapLayout>
