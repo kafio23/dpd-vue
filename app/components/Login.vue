@@ -33,11 +33,8 @@
 <script>
 import { connectionType, getConnectionType } from 'tns-core-modules/connectivity'
 import User from '@/models/User'
-import LoginService from '@/services/LoginService'
 import StartupsList from "@/components/Startups/StartupsList";
 import userData from '@/assets/data/user.json'
-
-const loginService = new LoginService()
 
 export default {
   mounted() {
@@ -74,7 +71,6 @@ export default {
       }
 
       if  (emailFlag && passwordFlag) {
-        console.log('----SIIII----')
         this.$navigateTo(StartupsList)
       } else {
         alert("Usuario y/o contraseña no existe")

@@ -33,7 +33,6 @@
 import StartupView from './StartupView.vue'
 import StartupItem from './StartupItem.vue'
 import Login from '@/components/Login'
-import LoginService from '@/services/LoginService'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
@@ -45,7 +44,6 @@ const GOOGLE_API_KEY = process.env.VUE_APP_KEY;
 const spreadsheetId = process.env.VUE_APP_SHEET;
 const range = 'Sheet1';
 
-const loginService = new LoginService()
 
 export default {
   components: {
