@@ -1,11 +1,10 @@
 import Vue from "nativescript-vue";
 
-import Home from "./components/Home";
 import Login from "./components/Login";
 import StartupsList from "./components/Startups/StartupsList";
 import StartupView from "./components/Startups/StartupView";
 import StartupItem from "./components/Startups/StartupItem";
-import StartupFilter from "./components/Startups/StartupFilter";
+import IndustriesList from "./components/Industries/IndustriesList";
 
 import store from './store';
 
@@ -25,6 +24,6 @@ new Vue({
         StartupsList,
         StartupView,
         StartupItem,
-        StartupFilter
+        IndustriesList
     }
 }).$start();

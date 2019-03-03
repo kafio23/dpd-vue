@@ -25,7 +25,7 @@
       <!-- <Button width="100%" height="10%" text="Favoritos" @tap="favoriteView" /> -->
       <FlexboxLayout :visibility="isBusy ? 'collapsed' : 'visible'" alignItems="center" width="100%" height="10%" >
         <Button width="50%" text="Favoritos" @tap="favoriteView" />
-        <Button width="50%" text="Industria" @tap="filterButton" />
+        <Button width="50%" text="Industria" @tap="industriesList" />
       </FlexboxLayout>
       
       <ActivityIndicator :visibility="isBusy ? 'visible' : 'collapsed'" width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
@@ -37,8 +37,8 @@
 
 import StartupView from './StartupView.vue'
 import StartupItem from './StartupItem.vue'
-import StartupFilter from './StartupFilter.vue'
 import Login from '@/components/Login'
+import IndustriesList from '@/components/Industries/IndustriesList'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 
@@ -230,6 +230,10 @@ export default {
 
     favoriteView() {
       this.$navigateTo(FavoriteList)
+    },
+    
+    industriesList() {
+      this.$navigateTo(IndustriesList)
     }
   }
 }
