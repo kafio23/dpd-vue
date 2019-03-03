@@ -53,15 +53,12 @@ export default {
 
   computed: {
     ...mapGetters({
-      itemList: 'itemList',
+      itemList: 'favoriteItemList',
       deletedItemList: 'deletedItemList',
       isLoading: 'isProcessing'
     }),
     startupItems: function() {
       return this.itemList
-    },
-    favoriteItems: function() {
-      // return this.isShowingRecent ? this.deletedItemList : this.itemList
     },
     pageClasses: function () {
       return {
@@ -98,7 +95,7 @@ export default {
     
     load() {
       this
-        .loadItems(this.searchText)
+        .loadItems({searchText: this.searchText, byType: this.byType})
         .then(() => {
           this.isBusy = false
         })
@@ -130,8 +127,9 @@ export default {
     },
 
     onTextChanged() {
+      console.log('CAMBIA', {searchText: this.searchText, byType: this.byType})
       this
-      .loadItems(this.searchText)
+      .loadItems({searchText: this.searchText, byType: this.byType})
         .then(() => {
           this.isBusy = false
         })
@@ -144,7 +142,7 @@ export default {
     onSubmit() {
       this.$refs.searchBar.nativeView.dismissSoftInput();
       this
-      .loadItems(this.searchText)
+      .loadItems({searchText: this.searchText, byType: this.byType})
         .then(() => {
           this.isBusy = false
         })
@@ -156,7 +154,7 @@ export default {
 
     onClear(){
       this
-      .loadItems(this.searchText)
+      .loadItems({searchText: this.searchText, byType: this.byType})
         .then(() => {
           this.isBusy = false
           this.$refs.searchBar.nativeView.dismissSoftInput();
@@ -185,29 +183,43 @@ export default {
     },
 
     filterButton() {
-      this.$showModal(Detail);
-    }
+      action({
+        message: "¿Buscar por?",
+        actions: ["Nombre","Tipo"],
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result === "Nombre") {
+          this.byType = 0
+          this
+          .loadItems({searchText: this.searchText, byType: this.byType})
+            .then(() => {
+              this.isBusy = false
+            })
+            .catch(error => {
+              console.error(error)
+              alert("An error occurred loading your Startup list.");
+            })
+        }
+        if (result === "Tipo") {
+          this.byType = 2
+          this
+          .loadItems({searchText: this.searchText, byType: this.byType})
+            .then(() => {
+              this.isBusy = false
+            })
+            .catch(error => {
+              console.error(error)
+              alert("An error occurred loading your Startup list.");
+            })
+        }
+      });
+      // this.$showModal(Detail);
+    },
+
   }
 }
 
-const Detail = {
-  template: `
-    <Page>
-      <StackLayout>
-      <FlexboxLayout alignSelf="center" >
-        <Label text="Tipo:" class="tag" />
-        <Switch v-model="itemEnabled" />
-			</FlexboxLayout>
-        <Switch v-model="itemEnabled" />
-        <Switch v-model="itemEnabled" />
-        <Switch v-model="itemEnabled" />
-        <Switch v-model="itemEnabled" />
-        <Switch v-model="itemEnabled" />
-        <Switch v-model="itemEnabled" />
-      </StackLayout>
-    </Page>
-  `
-};
+
 </script>
 
 <style scoped lang="scss">

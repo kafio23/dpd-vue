@@ -22,7 +22,7 @@
       </ListView>
       
       <!-- <Button width="100%" height="10%" text="Back to Master" @tap="$navigateBack" /> -->
-      <Button width="100%" height="10%" text="Filtrar" @tap="filterButton" />
+      <Button width="100%" height="10%" text="Favoritos" @tap="favoriteView" />
       
       <ActivityIndicator :visibility="isBusy ? 'visible' : 'collapsed'" width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
     </WrapLayout>
@@ -40,6 +40,7 @@ import { mapActions } from 'vuex'
 
 import * as http from 'tns-core-modules/http'
 import * as platformModule from 'tns-core-modules/platform'
+import FavoriteList from '~/components/Startups/FavoriteList.vue';
 const appSettings = require("application-settings");
 
 const GOOGLE_API_KEY = process.env.VUE_APP_KEY;
@@ -221,6 +222,10 @@ export default {
         }
       });
       // this.$showModal(Detail);
+    },
+
+    favoriteView() {
+      this.$navigateTo(FavoriteList)
     }
   }
 }

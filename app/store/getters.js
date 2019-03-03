@@ -1,6 +1,9 @@
 export const itemList = state => {
-  // return state.items.filter((item) => !item.deleted)
   return state.items
+}
+
+export const favoriteItemList = state => {
+  return state.items.filter((item) => item.favorite)
 }
 
 export const deletedItemList = state => {
