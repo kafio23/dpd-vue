@@ -17,6 +17,8 @@
 
 <script>
 
+import Login from '@/components/Login'
+
 export default {
   data() {
     return {
@@ -41,6 +43,10 @@ export default {
           this.logout();
         }
       });
+    },
+
+    logout: function() {
+      this.$navigateTo(Login)
     },
   }
 }
