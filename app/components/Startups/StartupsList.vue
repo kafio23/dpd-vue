@@ -1,12 +1,9 @@
 <template>
 	<Page actionBarHidden="true">
-		<!-- <ActionBar title="Startups"/> -->
-    
-    
     <WrapLayout backgroundColor="#2cb5e8" class="main-list" @loaded="load()">
 
       <FlexboxLayout alignItems="center" width="100%" height="10%" class="action-bar-costume">
-        <Label width="80%" text="Lista Startups"></Label>
+        <Label width="80%" text="Lista de Startups"></Label>
         <GridLayout width="20%" @tap="showMenu" class='menu-button-container'>
           <Image src="~/assets/images/icon_menu.png" witdh="30" height="30" />
         </GridLayout>
