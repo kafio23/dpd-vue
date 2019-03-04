@@ -1,12 +1,12 @@
-import validator from 'email-validator'
+import validator from "email-validator";
 
-export default class{
-    constructor() {
-        this.email = ''
-        this.password = ''
-    }
+export default class {
+  constructor() {
+    this.email = "";
+    this.password = "";
+  }
 
-    isValidEmail() {
-        return validator.validate(this.email);
-    }
+  isValidEmail() {
+    return validator.validate(this.email);
+  }
 }
