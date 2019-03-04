@@ -6,9 +6,5 @@
 
 `tns run android --bundle`
 
-or
-
-`tns run ios --bundle`
-
 ### Íconos & Imágenes
 Se obtuvieron de: https://icons8.com/
