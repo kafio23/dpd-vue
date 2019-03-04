@@ -12,6 +12,20 @@
 				</GridLayout>
 			</FlexboxLayout>
 
+      <ListView height="90%" for="startup in startups" @itemTap="onItemTap">
+        <v-template>
+          <WrapLayout class="item-container">
+            <FlexboxLayout flexDirection="column" >
+              <Label :text="startup.name" className="startupName" />
+              <Label :text="startup.industry" className="startupType" />
+            </FlexboxLayout>
+            <!-- <GridLayout  width="20%" height="30%" class="favorite-container">
+              <Image src="~/assets/images/icon_star_gray.png" witdh="30" height="30" />
+            </GridLayout> -->
+          </WrapLayout>
+        </v-template>
+      </ListView>
+
 		</StackLayout>
 	</Page>
 </template>
@@ -19,8 +33,20 @@
 <script>
 import Login from '@/components/Login'
 
+import { mapGetters } from 'vuex'
+
 export default {
-	props: ['industry'],
+  props: ['industry'],
+  
+  computed: {
+    ...mapGetters({
+      itemList: 'itemList',
+      isLoading: 'isProcessing'
+    }),
+    startups: function() {
+      return this.itemList
+    },
+  },
 
 	data() {
     return {
