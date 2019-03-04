@@ -10,7 +10,7 @@ import IndustryStartups from "./components/Industries/IndustryStartups";
 import store from './store';
 
 const appSettings = require("application-settings");
-appSettings.setString("favorites", '["5Helium", "Troomo"]')
+appSettings.setString("favorites", '[]')
 
 new Vue({
     store,
