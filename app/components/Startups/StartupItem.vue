@@ -1,12 +1,15 @@
 <template>
   <WrapLayout class="item-container">
-    <FlexboxLayout width="75%" flexDirection="column" >
-      <Label :text="item.name" className="startupName" />
-      <Label :text="item.solutionType" className="startupType" />
+    <FlexboxLayout width="75%" flexDirection="column">
+      <Label :text="item.name" class="startupName"/>
+      <Label :text="item.solutionType" class="startupType"/>
     </FlexboxLayout>
-    <GridLayout  width="20%" height="30%" class="favorite-container" @tap="toggleFavoriteItem">
-      <Image :src="item.favorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'" witdh="30"
-        height="30" />
+    <GridLayout width="20%" height="30%" class="favorite-container" @tap="toggleFavoriteItem">
+      <Image
+        :src="item.favorite ? '~/assets/images/icon_star_filled.png' : '~/assets/images/icon_star_gray.png'"
+        witdh="30"
+        height="30"
+      />
     </GridLayout>
   </WrapLayout>
 </template>
@@ -23,40 +26,36 @@ export default {
   methods: {
     toggleFavoriteItem() {
       if (this.item.favorite) {
-        this.$store.dispatch('toggleFavoriteItem', this.item)
-        .catch( () => {
+        this.$store.dispatch("toggleFavoriteItem", this.item).catch(() => {
           alert("An error occurred managing your startup.");
         });
-      }
-      else {
-        this.$store.dispatch('toggleFavoriteItem', this.item)
-          .catch( () => {
-            alert("An error occurred managing your startup.");
-          });
+      } else {
+        this.$store.dispatch("toggleFavoriteItem", this.item).catch(() => {
+          alert("An error occurred managing your startup.");
+        });
       }
     },
 
     favoreItem() {
-      this.$store.dispatch('favoriteItem', this.item)
-        .catch(() => {
-          alert("An error occurred managing your Startup list.");
-        });
-    },
-  },
-}
+      this.$store.dispatch("favoriteItem", this.item).catch(() => {
+        alert("An error occurred managing your Startup list.");
+      });
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
 @import "../../app-variables";
 
-Label.startupName {
+label.startupName {
   font-size: 20px;
   color: #2cb5e8;
   font-weight: bold;
 }
 
-Label.startupType {
-	font-style: italic;
+label.startupType {
+  font-style: italic;
   font-size: 14px;
   font-weight: bold;
 }
