@@ -11,6 +11,13 @@
 					<Image src="~/assets/images/icon_menu.png" witdh="30" height="30" />
 				</GridLayout>
 			</FlexboxLayout>
+      
+      <ListView width="100%" height="60%" for="industry in industryItems" @itemTap="onItemTap" style="height:300px">
+        <v-template>
+          <Label :text="industry"></Label>
+            <!-- <StartupItem ref="industryItem" :industry="industry" ></StartupItem> -->
+        </v-template>
+      </ListView>
 		</WrapLayout>
 	</Page>
 </template>
@@ -18,8 +25,34 @@
 <script>
 
 import Login from '@/components/Login'
+import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
+import { industriesList, itemList } from '~/store/getters';
 
 export default {
+  computed: {
+    ...mapGetters({
+      itemList: 'itemList',
+      isLoading: 'isProcessing'
+    }),
+
+    startupItems: function() {
+      return this.itemList
+    },
+
+    industryItems: function() {
+      let industries = []
+      function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+      }
+      this.startupItems.forEach(element => {
+        industries.push(element.industry)
+      })
+      industries = industries.filter( onlyUnique )
+      return industries
+    },
+  },
+
   data() {
     return {
     }
