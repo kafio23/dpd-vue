@@ -1,6 +1,6 @@
 <template>
 	<Page actionBarHidden="true">
-		<StackLayout>
+		<StackLayout @loaded="load()">
 
 			<FlexboxLayout alignItems="center" height="10%" class="action-bar-costume">
 				<GridLayout width="10%"  @tap="goBack">
@@ -13,19 +13,18 @@
 				</GridLayout>
 			</FlexboxLayout>
       
-      <ListView height="90%" for="industry in industryItems" @itemTap="onItemTap">
+      <ListView :visibility="isBusy ? 'collapsed' : 'visible'" height="90%" for="industry in industryItems" @itemTap="onItemTap">
         <v-template>
           <WrapLayout class="item-container">
             <FlexboxLayout flexDirection="column" >
               <Label :text="industry.name" className="startupName" />
               <Label :text="industry.num" className="startupType" />
             </FlexboxLayout>
-            <!-- <GridLayout  width="20%" height="30%" class="favorite-container">
-              <Image src="~/assets/images/icon_star_gray.png" witdh="30" height="30" />
-            </GridLayout> -->
           </WrapLayout>
         </v-template>
       </ListView>
+
+      <ActivityIndicator :visibility="isBusy ? 'visible' : 'collapsed'" width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
 
 		</StackLayout>
 	</Page>
@@ -93,6 +92,7 @@ export default {
 
   data() {
     return {
+      isBusy: true,
     }
   },
 
@@ -100,8 +100,24 @@ export default {
 	},
 
 	methods: {
+    ...mapActions([
+      'loadItems',
+    ]),
+
     goBack() {
 			this.$navigateBack();
+    },
+
+    load() {
+      this
+        .loadItems()
+        .then(() => {
+          this.isBusy = false
+        })
+        .catch(error => {
+          console.error(error)
+          alert("An error occurred loading your Startup list.");
+        })
     },
     
     showMenu() {

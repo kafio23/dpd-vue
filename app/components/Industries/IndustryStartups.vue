@@ -1,6 +1,6 @@
 <template>
 	<Page actionBarHidden="true">
-		<StackLayout>
+		<StackLayout @loaded="load()">
 
 			<FlexboxLayout alignItems="center" height="10%" class="action-bar-costume">
 				<GridLayout width="10%"  @tap="goBack">
@@ -12,19 +12,13 @@
 				</GridLayout>
 			</FlexboxLayout>
 
-      <ListView height="90%" for="startup in startups" @itemTap="onItemTap">
+      <ListView :visibility="isBusy ? 'collapsed' : 'visible'" height="90%" for="startup in startups" @itemTap="onItemTap">
         <v-template>
-          <WrapLayout class="item-container">
-            <FlexboxLayout flexDirection="column" >
-              <Label :text="startup.name" className="startupName" />
-              <Label :text="startup.industry" className="startupType" />
-            </FlexboxLayout>
-            <!-- <GridLayout  width="20%" height="30%" class="favorite-container">
-              <Image src="~/assets/images/icon_star_gray.png" witdh="30" height="30" />
-            </GridLayout> -->
-          </WrapLayout>
+          <StartupItem ref="startupItem" :item="startup" ></StartupItem>
         </v-template>
       </ListView>
+
+      <ActivityIndicator :visibility="isBusy ? 'visible' : 'collapsed'" width="100%" height="10%" :busy="isBusy"></ActivityIndicator>
 
 		</StackLayout>
 	</Page>
@@ -32,11 +26,19 @@
 
 <script>
 import Login from '@/components/Login'
+import IndustriesList from './IndustriesList.vue'
+import StartupItem from '@/components/Startups/StartupItem.vue'
+import StartupView from '@/components/Startups/StartupView.vue'
 
 import { mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   props: ['industry'],
+
+  components: {
+    StartupItem
+  },
   
   computed: {
     ...mapGetters({
@@ -50,6 +52,7 @@ export default {
 
 	data() {
     return {
+      isBusy: true,
     }
   },
 
@@ -57,8 +60,24 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'loadItems',
+    ]),
+
     goBack() {
-			this.$navigateBack();
+      this.$navigateBack();
+    },
+
+    load() {
+      this
+        .loadItems({searchText: this.industry.name, byType: 1})
+        .then(() => {
+          this.isBusy = false
+        })
+        .catch(error => {
+          console.error(error)
+          alert("An error occurred loading your Startup list.");
+        })
     },
 
     logout: function() {
@@ -75,6 +94,10 @@ export default {
           this.logout();
         }
       });
+    },
+
+    onItemTap({ item }) {
+      this.$navigateTo(StartupView, { props: { item: item } } )
     },
   }
 }
