@@ -65,7 +65,7 @@ export default {
 
 Label.startupName {
   font-size: 20px;
-  color: $white;
+  color: #2cb5e8;
   font-weight: bold;
 }
 

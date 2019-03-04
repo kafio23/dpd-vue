@@ -1,6 +1,6 @@
 <template>
 	<Page actionBarHidden="true">
-    <WrapLayout backgroundColor="#2cb5e8" class="main-list" @loaded="load()">
+    <WrapLayout class="main-list" @loaded="load()">
 
       <FlexboxLayout alignItems="center" width="100%" height="10%" class="action-bar-costume">
 				<GridLayout width="10%"  @tap="goBack">
