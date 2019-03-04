@@ -213,8 +213,8 @@ export default {
 
     filterButton() {
       action({
-        message: "¿Buscar por?",
-        actions: ["Nombre", "Tipo"],
+        message: "¿Buscar Startup por?",
+        actions: ["Nombre", "Tipo de Solución"],
         cancelButtonText: "Cancelar"
       }).then(result => {
         if (result === "Nombre") {
@@ -227,8 +227,7 @@ export default {
               console.error(error);
               alert("An error occurred loading your Startup list.");
             });
-        }
-        if (result === "Tipo") {
+        } else {
           this.byType = 2;
           this.loadItems({ searchText: this.searchText, byType: this.byType })
             .then(() => {
