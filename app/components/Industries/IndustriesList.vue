@@ -27,7 +27,7 @@
           <WrapLayout class="item-container">
             <FlexboxLayout flexDirection="column">
               <Label :text="industry.name" class="startupName"/>
-              <Label :text="industry.num" class="startupType"/>
+              <Label :text="`Startups ${industry.num}`" class="startupType"/>
             </FlexboxLayout>
           </WrapLayout>
         </v-template>

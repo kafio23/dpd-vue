@@ -49,7 +49,7 @@
         height="10%"
       >
         <Button width="50%" text="Favoritos" @tap="favoriteView"/>
-        <Button width="50%" text="Industria" @tap="industriesList"/>
+        <Button width="50%" text="Industrias" @tap="industriesList"/>
       </FlexboxLayout>
 
       <ActivityIndicator
