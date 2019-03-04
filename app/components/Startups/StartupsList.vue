@@ -10,19 +10,20 @@
       </FlexboxLayout>
 
       <FlexboxLayout :visibility="isBusy ? 'collapsed' : 'visible'" alignItems="center" width="100%" height="10%" >
-        <SearchBar width="65%" ref="searchBar" @clear="onClear" hint="Buscar..."
+        <SearchBar width="75%" ref="searchBar" @clear="onClear" hint="Buscar..."
           v-model="searchText" @textChange="onTextChanged" @submit="onSubmit" class="search-bar" />
-        <Button width="35%" text="Selecciona Categoría" @tap="filterButton" />
+        <!-- <Button width="35%" text="Selecciona Categoría" @tap="filterButton" /> -->
+        <GridLayout width="25%" @tap="filterButton" class="filter-btn">
+          <Image src="~/assets/images/icon_filter.png" witdh="30" height="30" />
+        </GridLayout>
       </FlexboxLayout>
 
-      <ListView :visibility="isBusy ? 'collapsed' : 'visible'" width="100%" height="60%" for="item in startupItems" @itemTap="onItemTap" style="height:300px">
+      <ListView :visibility="isBusy ? 'collapsed' : 'visible'" width="100%" height="70%" for="item in startupItems" @itemTap="onItemTap">
         <v-template>
             <StartupItem ref="startupItem" :item="item" ></StartupItem>
         </v-template>
       </ListView>
       
-      <!-- <Button width="100%" height="10%" text="Back to Master" @tap="$navigateBack" /> -->
-      <!-- <Button width="100%" height="10%" text="Favoritos" @tap="favoriteView" /> -->
       <FlexboxLayout :visibility="isBusy ? 'collapsed' : 'visible'" alignItems="center" width="100%" height="10%" >
         <Button width="50%" text="Favoritos" @tap="favoriteView" />
         <Button width="50%" text="Industria" @tap="industriesList" />
@@ -65,9 +66,6 @@ export default {
     }),
     startupItems: function() {
       return this.itemList
-    },
-    favoriteItems: function() {
-      // return this.isShowingRecent ? this.deletedItemList : this.itemList
     },
     pageClasses: function () {
       return {
@@ -225,7 +223,6 @@ export default {
             })
         }
       });
-      // this.$showModal(Detail);
     },
 
     favoriteView() {
@@ -238,34 +235,6 @@ export default {
   }
 }
 
-const Detail = {
-  template: `
-    <Frame>
-      <Page>
-        <ActionBar title="Buscar por..."/>
-        <StackLayout>
-
-          <FlexboxLayout alignItems="center">
-            <Label text="Nombre"></Label>
-            <Switch :checked="byName" v-model="byName" />
-          </FlexboxLayout>
-
-          <FlexboxLayout alignItems="center">
-            <Label text="Industria"></Label>
-            <Switch :checked="byIndustry" v-model="byName" />
-          </FlexboxLayout>
-
-          <FlexboxLayout alignItems="center">
-            <Label text="Tipo de Solución"></Label>
-            <Switch :checked="byType" v-model="byName" />
-          </FlexboxLayout>
-          
-          <Button @tap="$modal.close" text="Close" />
-        </StackLayout>
-      </Page>
-    </Frame>
-  `
-};
 </script>
 
 <style scoped lang="scss">
@@ -273,6 +242,10 @@ const Detail = {
 
 .main-list {
   // opacity: 0.6;
+}
+.filter-btn {
+  background-color: #e0e0e0;
+  border-radius: 3px;
 }
 .search-bar {
   background: $white;
