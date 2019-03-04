@@ -6,7 +6,7 @@
 				<GridLayout width="10%"  @tap="goBack">
 					<Image src="~/assets/images/icon_left.png" witdh="30" height="30" />
 				</GridLayout>
-				<Label width="70%" :text="industry.name"></Label>
+				<Label width="70%" :text="`Industria ${industry.name}`"></Label>
 				<GridLayout width="20%" @tap="showMenu" class='menu-button-container'>
 					<Image src="~/assets/images/icon_menu.png" witdh="30" height="30" />
 				</GridLayout>
