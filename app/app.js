@@ -5,6 +5,7 @@ import StartupsList from "./components/Startups/StartupsList";
 import StartupView from "./components/Startups/StartupView";
 import StartupItem from "./components/Startups/StartupItem";
 import IndustriesList from "./components/Industries/IndustriesList";
+import IndustryStartup from "./components/Industries/IndustryStartup";
 
 import store from './store';
 
@@ -24,6 +25,7 @@ new Vue({
         StartupsList,
         StartupView,
         StartupItem,
-        IndustriesList
+        IndustriesList,
+        IndustryStartup
     }
 }).$start();

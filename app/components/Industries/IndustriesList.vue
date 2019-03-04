@@ -37,6 +37,7 @@ import Login from '@/components/Login'
 import { mapGetters } from 'vuex'
 import { mapActions } from 'vuex'
 import { industriesList, itemList } from '~/store/getters';
+import IndustryStartup from './IndustryStartup.vue'
 
 export default {
   computed: {
@@ -118,6 +119,10 @@ export default {
     logout: function() {
       this.$navigateTo(Login)
     },
+
+    onItemTap({item}) {
+			this.$navigateTo(IndustryStartup, { props: { industry: item } } )
+		},
   }
 }
 
