@@ -63,11 +63,6 @@ export default {
 <style scoped lang="scss">
 @import "../../app-variables";
 
-.item-container {
-  padding-left: 10px;
-  padding-right: 5px;
-}
-
 Label.startupName {
   font-size: 20px;
   color: $white;
