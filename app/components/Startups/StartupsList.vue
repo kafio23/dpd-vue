@@ -13,7 +13,7 @@
         <SearchBar width="75%" ref="searchBar" @clear="onClear" hint="Buscar..."
           v-model="searchText" @textChange="onTextChanged" @submit="onSubmit" class="search-bar" />
         <!-- <Button width="35%" text="Selecciona Categoría" @tap="filterButton" /> -->
-        <GridLayout width="25%" @tap="filterButton" class="filter-btn">
+        <GridLayout width="24%" @tap="filterButton" class="filter-btn">
           <Image src="~/assets/images/icon_filter.png" witdh="30" height="30" />
         </GridLayout>
       </FlexboxLayout>

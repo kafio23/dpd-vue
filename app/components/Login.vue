@@ -56,7 +56,6 @@ export default {
     },
 
     login() {
-      // this.$showModal(Detail);
       let emailFlag = false
       let passwordFlag = false
       let userTest = JSON.parse(JSON.stringify({
