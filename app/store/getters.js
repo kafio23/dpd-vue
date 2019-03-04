@@ -1,15 +1,15 @@
 export const itemList = state => {
-  return state.items
-}
+  return state.items;
+};
 
 export const favoriteItemList = state => {
-  return state.items.filter((item) => item.favorite)
-}
+  return state.items.filter(item => item.favorite);
+};
 
 export const deletedItemList = state => {
-  return state.items.filter((item) => item.deleted)
-}
+  return state.items.filter(item => item.deleted);
+};
 
 export const isProcessing = state => {
-  return state.processingTasks.length >= 1
-}
+  return state.processingTasks.length >= 1;
+};
