@@ -50,7 +50,7 @@
         <StackLayout width="40%" height="50%">
           <Label :text="item.country" class="key-value"/>
           <Label :text="item.contractDate" class="key-value"/>
-          <Label :text="item.web" class="key-value"/>
+          <Label :text="item.web" class="link-label" @tap="onLink"/>
           <Label :text="item.university" class="key-value"/>
         </StackLayout>
       </WrapLayout>
@@ -60,6 +60,7 @@
 
 <script>
 import StartupsList from "./StartupsList.vue";
+import StartupWeb from "./StartupWeb.vue";
 import Login from "@/components/Login";
 const appSettings = require("application-settings");
 
@@ -94,6 +95,10 @@ export default {
           this.logout();
         }
       });
+    },
+
+    onLink(){     
+      this.$navigateTo(StartupWeb, { props: { item: this.item } });
     }
   }
 };
