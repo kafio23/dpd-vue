@@ -3,8 +3,8 @@ import userData from "@/assets/data/user.json";
 export default class LoginService {
   constructor() {
     this.userExist = false;
-    let emailFlag = false;
-    let passwordFlag = false;
+    this.emailFlag = false;
+    this.passwordFlag = false;
   }
 
   register(user) {
@@ -12,24 +12,20 @@ export default class LoginService {
   }
 
   login(user) {
-    let userTest = JSON.parse(
-      JSON.stringify({
-        username: user.email,
-        password: user.password
-      })
-    );
-    if (Object.values(userTest)[0] == userData.email) {
+    this.userExist = false;
+    this.emailFlag = false;
+    this.passwordFlag = false;
+    if (user.email == userData.email) {
       this.emailFlag = true;
     }
-    if (Object.values(userTest)[1] == userData.password) {
+    if (user.password == userData.password) {
       this.passwordFlag = true;
     }
 
     if (this.emailFlag && this.passwordFlag) {
       this.userExist = true;
-    } else {
-      this.userExist = false;
     }
+
     return new Promise((resolve, reject) => {
       if (this.userExist) {
         resolve(user);
@@ -40,6 +36,8 @@ export default class LoginService {
 
   logout() {
     this.userExist = false;
+    this.emailFlag = false;
+    this.passwordFlag = false;
   }
 
   resetPassword(email) {
