@@ -15,7 +15,7 @@
       </FlexboxLayout>
 
       <WrapLayout height="90%" class="startup-header">
-        <WebView android:usesCleartextTraffic="true" :src="this.item.web"/>
+        <WebView src="http://nativescript-vue.org/"/>
       </WrapLayout>
     </WrapLayout>
   </Page>
