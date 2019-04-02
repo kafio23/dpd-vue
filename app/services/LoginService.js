@@ -34,12 +34,6 @@ export default class LoginService {
     });
   }
 
-  logout() {
-    this.userExist = false;
-    this.emailFlag = false;
-    this.passwordFlag = false;
-  }
-
   resetPassword(email) {
     return Promise.resolve(email);
   }
