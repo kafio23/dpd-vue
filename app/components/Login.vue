@@ -73,6 +73,12 @@ export default {
     login() {
       let emailFlag = false;
       let passwordFlag = false;
+      if (!this.user.email || !this.user.password) {
+        alert({
+          message: "Ingrese usuario y contraseña"
+        });
+        return;
+      }
       let userTest = JSON.parse(
         JSON.stringify({
           username: this.user.email,
