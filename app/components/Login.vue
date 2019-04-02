@@ -27,7 +27,7 @@
               height="18"
             />
             <TextField
-              ref="userPassword"
+              ref="password"
               v-model="user.password"
               hint="Contraseña"
               secure="true"
@@ -35,7 +35,7 @@
             />
           </FlexboxLayout>
 
-          <Button text="Login" @tap="onButtonTap" class="login-button"/>
+          <Button text="Login" @tap="submit" class="login-button"/>
         </StackLayout>
       </FlexboxLayout>
     </StackLayout>
@@ -50,6 +50,9 @@ import {
 import User from "@/models/User";
 import StartupsList from "@/components/Startups/StartupsList";
 import userData from "@/assets/data/user.json";
+import LoginService from "@/services/LoginService";
+
+const loginService = new LoginService();
 
 export default {
   mounted() {
@@ -58,45 +61,68 @@ export default {
 
   data() {
     return {
+      isLoggingIn: true,
       user: new User()
     };
   },
   methods: {
     focusPassword() {
-      this.$refs.userPassword.nativeView.focus();
+      this.$refs.password.nativeView.focus();
     },
 
-    onButtonTap() {
-      this.login();
+    submit() {
+      if (!this.user.email || !this.user.password) {
+        this.alert("Ingrese usuario y contraseña");
+        return;
+      }
+      console.log("Dentro de submit 1");
+      if (this.isLoggingIn) {
+        this.login();
+        // } else {
+        //     this.register();
+      }
     },
 
     login() {
-      let emailFlag = false;
-      let passwordFlag = false;
-      if (!this.user.email || !this.user.password) {
-        alert({
-          message: "Ingrese usuario y contraseña"
-        });
-        return;
-      }
-      let userTest = JSON.parse(
-        JSON.stringify({
-          username: this.user.email,
-          password: this.user.password
+      console.log("Dentro de Login 1");
+      loginService
+        .login(this.user)
+        .then(() => {
+          console.log("Dentro 1");
+          this.$navigateTo(StartupsList);
         })
-      );
-      if (Object.values(userTest)[0] == userData.email) {
-        emailFlag = true;
-      }
-      if (Object.values(userTest)[1] == userData.password) {
-        passwordFlag = true;
-      }
+        .catch(() => {
+          this.alert("Unfortunately we could not find your account.");
+        });
+      //   let emailFlag = false;
+      //   let passwordFlag = false;
 
-      if (emailFlag && passwordFlag) {
-        this.$navigateTo(StartupsList);
-      } else {
-        alert("Usuario y/o contraseña no existe");
-      }
+      //   let userTest = JSON.parse(
+      //     JSON.stringify({
+      //       username: this.user.email,
+      //       password: this.user.password
+      //     })
+      //   );
+      //   if (Object.values(userTest)[0] == userData.email) {
+      //     emailFlag = true;
+      //   }
+      //   if (Object.values(userTest)[1] == userData.password) {
+      //     passwordFlag = true;
+      //   }
+
+      //   if (emailFlag && passwordFlag) {
+      //     this.$navigateTo(StartupsList);
+      //   } else {
+      //     alert("Usuario y/o contraseña no existe");
+      //   }
+    },
+
+    alert(message) {
+      return alert({
+        title: "STARTUP APP",
+        okButtonText: "OK",
+        message: message
+      });
     }
   }
 };
