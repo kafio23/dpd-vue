@@ -31,11 +31,15 @@ export default class LoginService {
       this.userExist = false;
     }
     return new Promise((resolve, reject) => {
-      if (this.emailFlag && this.passwordFlag) {
+      if (this.userExist) {
         resolve(user);
       }
       reject();
     });
+  }
+
+  logout() {
+    this.userExist = false;
   }
 
   resetPassword(email) {
