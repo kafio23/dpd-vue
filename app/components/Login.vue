@@ -75,7 +75,6 @@ export default {
         this.alert("Ingrese usuario y contraseña");
         return;
       }
-      console.log("Dentro de submit 1");
       if (this.isLoggingIn) {
         this.login();
         // } else {
@@ -84,37 +83,14 @@ export default {
     },
 
     login() {
-      console.log("Dentro de Login 1");
       loginService
         .login(this.user)
         .then(() => {
-          console.log("Dentro 1");
           this.$navigateTo(StartupsList);
         })
         .catch(() => {
-          this.alert("Unfortunately we could not find your account.");
+          this.alert("Desafortunadamente no te encuentras registrado.");
         });
-      //   let emailFlag = false;
-      //   let passwordFlag = false;
-
-      //   let userTest = JSON.parse(
-      //     JSON.stringify({
-      //       username: this.user.email,
-      //       password: this.user.password
-      //     })
-      //   );
-      //   if (Object.values(userTest)[0] == userData.email) {
-      //     emailFlag = true;
-      //   }
-      //   if (Object.values(userTest)[1] == userData.password) {
-      //     passwordFlag = true;
-      //   }
-
-      //   if (emailFlag && passwordFlag) {
-      //     this.$navigateTo(StartupsList);
-      //   } else {
-      //     alert("Usuario y/o contraseña no existe");
-      //   }
     },
 
     alert(message) {
@@ -125,17 +101,6 @@ export default {
       });
     }
   }
-};
-
-const Detail = {
-  template: `
-    <Page>
-      <ActionBar title="Detail"/>
-      <StackLayout>
-        <Button text="Back to Master" @tap="$navigateBack" />
-      </StackLayout>
-    </Page>
-  `
 };
 </script>
 
